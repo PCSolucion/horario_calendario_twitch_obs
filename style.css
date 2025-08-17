@@ -1,0 +1,263 @@
+/* ===== VARIABLES CSS ===== */
+:root {
+  /* Colores principales */
+  --color-primary: #9147FF;
+  --color-primary-dark: #7c3aed;
+  --color-primary-darker: #6d28d9;
+  --color-accent: #fbbf24;
+  --color-text-light: #e5e7eb;
+  --color-text-white: #ffffff;
+  --color-background: #000000;
+  
+  /* Espaciado */
+  --spacing-xs: 0.2em;
+  --spacing-sm: 0.4em;
+  --spacing-md: 0.6em;
+  --spacing-lg: 0.8em;
+  --spacing-xl: 1em;
+  --spacing-xxl: 1.2em;
+  
+  /* Tamaños de fuente */
+  --font-size-xs: 0.75em;
+  --font-size-sm: 0.8em;
+  --font-size-md: 0.9em;
+  --font-size-lg: 1.4em;
+  
+  /* Bordes y sombras */
+  --border-radius-sm: 12px;
+  --border-radius-md: 25px;
+  --border-radius-lg: 2px;
+  --shadow-light: rgba(255, 255, 255, 0.1);
+  --shadow-medium: rgba(255, 255, 255, 0.2);
+  --shadow-dark: rgba(255, 255, 255, 0.3);
+  --shadow-primary: rgba(145, 71, 255, 0.3);
+  
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-very-slow: 1s ease-in-out;
+}
+
+/* ===== RESET Y BASE ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-background);
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== LAYOUT PRINCIPAL ===== */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10vmin;
+  overflow: hidden;
+  transform: skew(5deg);
+}
+
+/* ===== COMPONENTE TARJETA ===== */
+.card {
+  flex: 1;
+  transition: all var(--transition-very-slow);
+  height: 75vmin;
+  position: relative;
+}
+
+.card:not(:nth-child(5)) {
+  margin-right: var(--spacing-xl);
+}
+
+/* ===== CABECERA DE TARJETA ===== */
+.card__head {
+  color: var(--color-text-white);
+  background: var(--color-primary);
+  padding: var(--spacing-lg);
+  transform: rotate(-90deg);
+  transform-origin: 0% 0%;
+  transition: all var(--transition-slow);
+  min-width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  white-space: nowrap;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  letter-spacing: 1px;
+}
+
+/* ===== SECCIÓN DE TIEMPO ===== */
+.card__time {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark), var(--color-primary-darker));
+  color: var(--color-text-white);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-sm);
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 -4px 20px var(--shadow-primary);
+  transition: all var(--transition-medium);
+  z-index: 10;
+  border-top: 2px solid var(--shadow-medium);
+}
+
+/* ===== ZONAS HORARIAS ===== */
+.time-zones {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  padding: 0 var(--spacing-lg);
+}
+
+.time-zone {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: var(--shadow-light);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--shadow-dark);
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(10px);
+}
+
+/* ===== ESPACIADO ESPECÍFICO DE ZONAS HORARIAS ===== */
+.time-zone:nth-child(1),
+.time-zone:nth-child(2) {
+  margin-right: var(--spacing-xxl);
+  padding: var(--spacing-lg) var(--spacing-xl);
+}
+
+.time-zone:nth-child(3),
+.time-zone:nth-child(4),
+.time-zone:nth-child(5) {
+  margin-left: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
+}
+
+/* ===== ELEMENTOS DE ZONA HORARIA ===== */
+.flag {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-accent);
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--shadow-medium);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.country {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.time {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-white);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== ZONA HORARIA ESPAÑA (ESPECIAL) ===== */
+.time-zone.spain {
+  transform: scale(1.15);
+  background: var(--shadow-medium);
+  border-color: var(--shadow-dark);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 15;
+}
+
+.time-zone.spain .flag {
+  position: relative;
+  width: 14px;
+  height: 10px;
+  background: linear-gradient(
+    to bottom,
+    #c60b1e 0%,
+    #c60b1e 33.33%,
+    #ffc400 33.33%,
+    #ffc400 66.66%,
+    #c60b1e 66.66%,
+    #c60b1e 100%
+  );
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--shadow-dark);
+  display: inline-block;
+  margin-right: var(--spacing-sm);
+}
+
+.time-zone.spain .country {
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--color-text-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.time-zone.spain .time {
+  font-size: 0.9em;
+  font-weight: 800;
+  color: var(--color-text-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* ===== IMAGEN DE TARJETA ===== */
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all var(--transition-very-slow);
+  filter: grayscale(40%);
+}
+
+/* ===== ESTADOS HOVER Y INTERACTIVOS ===== */
+.card:hover {
+  transform: scale(1.02);
+}
+
+.time-zone:hover {
+  background: var(--shadow-medium);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVIDAD ===== */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    transform: none;
+    margin: 5vmin;
+  }
+  
+  .card {
+    height: 50vmin;
+    margin-right: 0 !important;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .time-zones {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .time-zone {
+    justify-content: center;
+    margin: 0 !important;
+  }
+}
+
