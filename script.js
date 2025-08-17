@@ -86,7 +86,7 @@ class AnimationManager {
   constructor() {
     this.isAnimating = false;
     this.animationDelay = 900; // Delay entre cada card (aumentado de 600ms a 900ms)
-    this.animationDuration = 2400; // Duración de la animación (aumentado de 1600ms a 2400ms)
+    this.animationDuration = 2000; // Duración de la animación (ajustado para salida muy pausada como baraja)
     this.hasCompletedOnce = false; // Control para ejecutar solo una vez
   }
 
@@ -112,6 +112,8 @@ class AnimationManager {
     for (let i = 0; i < cards.length; i++) {
       const card = cards[i];
       
+      // Sin rotación, solo movimiento horizontal recto
+      
       // Animar entrada
       card.style.transform = 'translateX(0)';
       card.style.opacity = '1';
@@ -134,32 +136,27 @@ class AnimationManager {
   }
 
   /**
-   * Anima la salida de las cards de una en una hacia la izquierda
+   * Anima la salida de las cards como una baraja que se juntan rápidamente hacia la izquierda
    */
   async animateCardsOut(cards) {
     if (this.isAnimating) return;
     
     this.isAnimating = true;
     
-    // Animar salida de cada card en orden inverso
-    for (let i = cards.length - 1; i >= 0; i--) {
-      const card = cards[i];
-      
-      // Añadir clase de animación de salida
+    // Añadir clase de animación de salida a todas las cards simultáneamente
+    cards.forEach(card => {
       card.classList.add('animating-out');
-      
-      // Animar salida
+    });
+    
+    // Animar salida de todas las cards al mismo tiempo (como una baraja)
+    cards.forEach((card, index) => {
+      // Sin rotación, solo movimiento horizontal recto
       card.style.transform = 'translateX(-100vw)';
       card.style.opacity = '0';
-      
-      // Esperar antes de la siguiente card
-      if (i > 0) {
-        await this.delay(this.animationDelay);
-      }
-    }
+    });
 
-    // Esperar a que termine la última animación
-    await this.delay(this.animationDuration);
+    // Esperar a que termine la animación (mucho más lento)
+    await this.delay(2000); // Ajustado para salida muy pausada como baraja
     
     // Limpiar clases de animación
     cards.forEach(card => {
@@ -503,6 +500,14 @@ class TwitchCalendar {
         this.startManualAnimation();
       });
     }
+    
+    // Añadir event listener para el botón toggle
+    const toggleBtn = document.getElementById('toggle-animation-btn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        this.toggleAnimationMode();
+      });
+    }
   }
 
   /**
@@ -517,10 +522,67 @@ class TwitchCalendar {
   }
 
   /**
+   * Alterna entre modo con animación y sin animación
+   */
+  toggleAnimationMode() {
+    const toggleBtn = document.getElementById('toggle-animation-btn');
+    if (!toggleBtn) return;
+    
+    if (toggleBtn.classList.contains('active')) {
+      // Desactivar modo sin animación
+      this.enableAnimationMode();
+      toggleBtn.classList.remove('active');
+      toggleBtn.textContent = '⏸️ Modo Sin Animación';
+      this.updateAnimationStatus('Modo con animación activado', 'resumed');
+    } else {
+      // Activar modo sin animación
+      this.disableAnimationMode();
+      toggleBtn.classList.add('active');
+      toggleBtn.textContent = '▶️ Modo Con Animación';
+      this.updateAnimationStatus('Modo sin animación activado', 'paused');
+    }
+  }
+
+  /**
+   * Desactiva el modo de animación
+   */
+  disableAnimationMode() {
+    // Detener cualquier animación en curso
+    if (this.animationManager.isAnimating) {
+      this.stopAnimation();
+    }
+    
+    // Mostrar todas las cards inmediatamente
+    const cards = this.container.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.style.transform = 'translateX(0)';
+      card.style.opacity = '1';
+      card.classList.remove('animating-in', 'animating-out');
+    });
+    
+    // Marcar como completado para evitar auto-inicio
+    this.animationManager.hasCompletedOnce = true;
+    
+    console.log('Modo sin animación activado');
+  }
+
+  /**
+   * Activa el modo de animación
+   */
+  enableAnimationMode() {
+    // Resetear el estado de completado para permitir animaciones
+    this.animationManager.resetCompleted();
+    
+    console.log('Modo con animación activado');
+  }
+
+  /**
    * Actualiza el estado del botón de animación
    */
   updateAnimationButtonState() {
     const animationBtn = document.getElementById('start-animation-btn');
+    const toggleBtn = document.getElementById('toggle-animation-btn');
+    
     if (animationBtn) {
       if (this.animationManager.isAnimating) {
         animationBtn.disabled = true;
@@ -532,6 +594,11 @@ class TwitchCalendar {
         animationBtn.disabled = false;
         animationBtn.textContent = '🎬 Iniciar Animación';
       }
+    }
+    
+    if (toggleBtn) {
+      // El botón toggle siempre está habilitado
+      toggleBtn.disabled = false;
     }
   }
 
