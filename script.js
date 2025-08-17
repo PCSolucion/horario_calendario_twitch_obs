@@ -6,7 +6,8 @@
 // ===== CONFIGURACIÓN DE DATOS =====
 const SCHEDULE_DATA = {
   lunes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755393936/cover_ywnqgm.avif",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
+    game: "New World Aeternum",
     times: {
       spain: "16:00",
       mexico: "09:00",
@@ -16,7 +17,8 @@ const SCHEDULE_DATA = {
     }
   },
   martes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755393936/cover_ywnqgm.avif",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
+    game: "New World Aeternum",
     times: {
       spain: "16:00",
       mexico: "09:00",
@@ -26,7 +28,8 @@ const SCHEDULE_DATA = {
     }
   },
   miercoles: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755393936/cover_ywnqgm.avif",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
+    game: "New World Aeternum",
     times: {
       spain: "16:00",
       mexico: "09:00",
@@ -36,7 +39,8 @@ const SCHEDULE_DATA = {
     }
   },
   jueves: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755393936/cover_ywnqgm.avif",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
+    game: "New World Aeternum",
     times: {
       spain: "16:00",
       mexico: "09:00",
@@ -46,7 +50,8 @@ const SCHEDULE_DATA = {
     }
   },
   viernes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755393866/gotk_ufps2q.jpg",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408278/game-of-thrones-1-1920x1080_ffobjf.webp",
+    game: "GoT: Kingsroad",
     times: {
       spain: "16:00",
       mexico: "09:00",
@@ -56,13 +61,14 @@ const SCHEDULE_DATA = {
     }
   },
   sabado: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755393936/cover_ywnqgm.avif",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
+    game: "New World Aeternum",
     times: {
-      spain: "16:00",
-      mexico: "09:00",
-      argentina: "12:00",
-      colombia: "10:00",
-      chile: "11:00"
+      spain: "11:00", /* Cambiado de 16:00 a 11:00 (mañana) */
+      mexico: "04:00", /* 7 horas menos que España (11:00 - 7 = 04:00) */
+      argentina: "07:00", /* 4 horas menos que España (11:00 - 4 = 07:00) */
+      colombia: "05:00", /* 6 horas menos que España (11:00 - 6 = 05:00) */
+      chile: "06:00" /* 5 horas menos que España (11:00 - 5 = 06:00) */
     }
   }
 };
@@ -75,11 +81,148 @@ const COUNTRIES = {
   chile: { name: "", flag: "CL", isSpecial: false }
 };
 
+// ===== CLASE PARA MANEJO DE ANIMACIONES =====
+class AnimationManager {
+  constructor() {
+    this.isAnimating = false;
+    this.animationDelay = 900; // Delay entre cada card (aumentado de 600ms a 900ms)
+    this.animationDuration = 2400; // Duración de la animación (aumentado de 1600ms a 2400ms)
+    this.hasCompletedOnce = false; // Control para ejecutar solo una vez
+  }
+
+  /**
+   * Anima la entrada de las cards de una en una desde la izquierda
+   */
+  async animateCardsIn(cards) {
+    if (this.isAnimating) return;
+    
+    this.isAnimating = true;
+    
+    // Ocultar todas las cards inicialmente
+    cards.forEach(card => {
+      card.classList.add('animating-in');
+      card.style.transform = 'translateX(-100vw)';
+      card.style.opacity = '0';
+    });
+
+    // Pequeño delay para asegurar que las cards estén ocultas
+    await this.delay(100);
+
+    // Animar entrada de cada card
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+      
+      // Animar entrada
+      card.style.transform = 'translateX(0)';
+      card.style.opacity = '1';
+      
+      // Esperar antes de la siguiente card
+      if (i < cards.length - 1) {
+        await this.delay(this.animationDelay);
+      }
+    }
+
+    // Esperar a que termine la última animación
+    await this.delay(this.animationDuration);
+    
+    // Limpiar clases de animación
+    cards.forEach(card => {
+      card.classList.remove('animating-in');
+    });
+    
+    this.isAnimating = false;
+  }
+
+  /**
+   * Anima la salida de las cards de una en una hacia la izquierda
+   */
+  async animateCardsOut(cards) {
+    if (this.isAnimating) return;
+    
+    this.isAnimating = true;
+    
+    // Animar salida de cada card en orden inverso
+    for (let i = cards.length - 1; i >= 0; i--) {
+      const card = cards[i];
+      
+      // Añadir clase de animación de salida
+      card.classList.add('animating-out');
+      
+      // Animar salida
+      card.style.transform = 'translateX(-100vw)';
+      card.style.opacity = '0';
+      
+      // Esperar antes de la siguiente card
+      if (i > 0) {
+        await this.delay(this.animationDelay);
+      }
+    }
+
+    // Esperar a que termine la última animación
+    await this.delay(this.animationDuration);
+    
+    // Limpiar clases de animación
+    cards.forEach(card => {
+      card.classList.remove('animating-out');
+    });
+    
+    this.isAnimating = false;
+    this.hasCompletedOnce = true; // Marcar como completada
+  }
+
+  /**
+   * Función de utilidad para delays
+   */
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Reinicia las cards a su estado normal
+   */
+  resetCards(cards) {
+    cards.forEach(card => {
+      card.classList.remove('animating-in', 'animating-out');
+      card.style.transform = '';
+      card.style.opacity = '';
+    });
+  }
+
+  /**
+   * Pausa la animación
+   */
+  pause() {
+    this.isAnimating = true;
+  }
+
+  /**
+   * Reanuda la animación
+   */
+  resume() {
+    this.isAnimating = false;
+  }
+
+  /**
+   * Verifica si la animación ya se completó una vez
+   */
+  hasCompleted() {
+    return this.hasCompletedOnce;
+  }
+
+  /**
+   * Resetea el estado de completado
+   */
+  resetCompleted() {
+    this.hasCompletedOnce = false;
+  }
+}
+
 // ===== CLASE PRINCIPAL DEL CALENDARIO =====
 class TwitchCalendar {
   constructor(containerSelector) {
     this.container = document.querySelector(containerSelector);
     this.currentDay = this.getCurrentDay();
+    this.animationManager = new AnimationManager();
     this.init();
   }
 
@@ -90,6 +233,125 @@ class TwitchCalendar {
     this.renderCalendar();
     this.addEventListeners();
     this.highlightCurrentDay();
+    
+    // Configurar estado inicial del botón
+    this.updateAnimationButtonState();
+    
+    // Iniciar animación de entrada solo si no se ha completado antes
+    if (!this.animationManager.hasCompleted()) {
+      this.startEntryAnimation();
+    } else {
+      // Si ya se completó, mostrar mensaje de completado
+      this.updateAnimationStatus('Animación completada - Usa el botón para repetir', 'completed');
+    }
+  }
+
+  /**
+   * Inicia la animación de entrada de las cards
+   */
+  async startEntryAnimation() {
+    const cards = this.container.querySelectorAll('.card');
+    this.updateAnimationStatus('Entrando cards...', 'entering');
+    this.updateAnimationButtonState();
+    await this.animationManager.animateCardsIn(Array.from(cards));
+    
+    // Después de que todas las cards estén visibles, esperar 3 segundos antes de iniciar la salida
+    this.updateAnimationStatus('Cards visibles - Esperando 3 segundos...', 'waiting');
+    this.updateAnimationButtonState();
+    setTimeout(() => {
+      this.startExitAnimation();
+    }, 3000); // 3 segundos de pausa antes de empezar a salir
+  }
+
+  /**
+   * Inicia la animación de salida de las cards
+   */
+  async startExitAnimation() {
+    const cards = this.container.querySelectorAll('.card');
+    this.updateAnimationStatus('Saliendo cards...', 'exiting');
+    this.updateAnimationButtonState();
+    await this.animationManager.animateCardsOut(Array.from(cards));
+    
+    // Después de que todas las cards hayan salido, mostrar mensaje de completado
+    this.updateAnimationStatus('Animación completada - Usa el botón para repetir', 'completed');
+    this.updateAnimationButtonState();
+  }
+
+  /**
+   * Reinicia el ciclo de animación
+   */
+  async restartAnimationCycle() {
+    const cards = this.container.querySelectorAll('.card');
+    
+    // Reiniciar estado de las cards
+    this.animationManager.resetCards(Array.from(cards));
+    
+    // Resetear el estado de completado
+    this.animationManager.resetCompleted();
+    
+    // Pequeño delay y reiniciar
+    await this.animationManager.delay(500);
+    this.startEntryAnimation();
+  }
+
+  /**
+   * Actualiza el indicador de estado de la animación
+   */
+  updateAnimationStatus(message, state = 'default') {
+    const statusElement = document.getElementById('animation-status');
+    if (statusElement) {
+      const statusText = statusElement.querySelector('.status-text');
+      if (statusText) {
+        statusText.textContent = message;
+      }
+      
+      // Actualizar clases CSS según el estado
+      statusElement.className = `animation-status status-${state}`;
+    }
+  }
+
+  /**
+   * Pausa la animación
+   */
+  pauseAnimation() {
+    this.animationManager.pause();
+    this.updateAnimationStatus('Animación pausada', 'paused');
+    this.updateAnimationButtonState();
+    console.log('Animación pausada');
+  }
+
+  /**
+   * Reanuda la animación
+   */
+  resumeAnimation() {
+    this.animationManager.resume();
+    this.updateAnimationStatus('Animación reanudada', 'resumed');
+    this.updateAnimationButtonState();
+    console.log('Animación reanudada');
+  }
+
+  /**
+   * Detiene completamente la animación
+   */
+  stopAnimation() {
+    this.animationManager.pause();
+    const cards = this.container.querySelectorAll('.card');
+    this.animationManager.resetCards(Array.from(cards));
+    this.updateAnimationStatus('Animación detenida', 'stopped');
+    this.updateAnimationButtonState();
+    console.log('Animación detenida');
+  }
+
+  /**
+   * Reinicia la animación desde el principio
+   */
+  restartAnimation() {
+    this.stopAnimation();
+    this.updateAnimationStatus('Reiniciando animación...', 'restarting');
+    this.updateAnimationButtonState();
+    setTimeout(() => {
+      this.startEntryAnimation();
+    }, 1000);
   }
 
   /**
@@ -125,9 +387,13 @@ class TwitchCalendar {
     // Capitalizar primera letra del día
     const dayName = day.charAt(0).toUpperCase() + day.slice(1);
     
+    // Obtener la fecha real del día de la semana
+    const realDate = this.getRealDateForDay(day);
+    
     article.innerHTML = `
       <img src="${data.image}" alt="Imagen de portada para ${dayName}">
-      <header class="card__head">${dayName}</header>
+      <div class="card__game">${data.game}</div>
+      <header class="card__head">${dayName} ${realDate}</header>
       <section class="card__time">
         <div class="time-zones">
           ${this.createTimeZones(data.times)}
@@ -136,6 +402,37 @@ class TwitchCalendar {
     `;
     
     return article;
+  }
+
+  /**
+   * Obtiene la fecha real para un día específico de la semana actual
+   */
+  getRealDateForDay(targetDay) {
+    const today = new Date();
+    const currentDay = today.getDay(); // 0 = Domingo, 1 = Lunes, etc.
+    
+    // Mapeo de días de la semana
+    const dayMap = {
+      'domingo': 0,
+      'lunes': 1,
+      'martes': 2,
+      'miercoles': 3,
+      'jueves': 4,
+      'viernes': 5,
+      'sabado': 6
+    };
+    
+    const targetDayNumber = dayMap[targetDay];
+    const daysUntilTarget = (targetDayNumber - currentDay + 7) % 7;
+    
+    // Si es hoy, mostrar "Hoy", si no, calcular la fecha
+    if (daysUntilTarget === 0) {
+      return 'Hoy';
+    } else {
+      const targetDate = new Date(today);
+      targetDate.setDate(today.getDate() + daysUntilTarget);
+      return targetDate.getDate(); // Solo el número del día
+    }
   }
 
   /**
@@ -187,6 +484,81 @@ class TwitchCalendar {
       card.addEventListener('click', () => this.handleCardClick(card));
       card.addEventListener('mouseenter', () => this.handleCardHover(card, true));
       card.addEventListener('mouseleave', () => this.handleCardHover(card, false));
+    });
+
+    // Añadir controles de teclado para la animación
+    this.addKeyboardControls();
+    
+    // Añadir event listener para el botón de animación
+    this.addAnimationButtonListener();
+  }
+
+  /**
+   * Añade event listener para el botón de animación
+   */
+  addAnimationButtonListener() {
+    const animationBtn = document.getElementById('start-animation-btn');
+    if (animationBtn) {
+      animationBtn.addEventListener('click', () => {
+        this.startManualAnimation();
+      });
+    }
+  }
+
+  /**
+   * Inicia la animación manualmente desde el botón
+   */
+  startManualAnimation() {
+    // Solo permitir si no hay una animación en curso
+    if (!this.animationManager.isAnimating) {
+      this.restartAnimation();
+      this.updateAnimationStatus('Iniciando animación manual...', 'restarting');
+    }
+  }
+
+  /**
+   * Actualiza el estado del botón de animación
+   */
+  updateAnimationButtonState() {
+    const animationBtn = document.getElementById('start-animation-btn');
+    if (animationBtn) {
+      if (this.animationManager.isAnimating) {
+        animationBtn.disabled = true;
+        animationBtn.textContent = '⏳ Animando...';
+      } else if (this.animationManager.hasCompleted()) {
+        animationBtn.disabled = false;
+        animationBtn.textContent = '🎬 Repetir Animación';
+      } else {
+        animationBtn.disabled = false;
+        animationBtn.textContent = '🎬 Iniciar Animación';
+      }
+    }
+  }
+
+  /**
+   * Añade controles de teclado para la animación
+   */
+  addKeyboardControls() {
+    document.addEventListener('keydown', (event) => {
+      switch(event.key.toLowerCase()) {
+        case ' ': // Espacio - Pausar/Reanudar
+          event.preventDefault();
+          if (this.animationManager.isAnimating) {
+            this.pauseAnimation();
+          } else {
+            this.resumeAnimation();
+          }
+          break;
+        case 's': // S - Detener
+          this.stopAnimation();
+          break;
+        case 'r': // R - Reiniciar
+          this.restartAnimation();
+          break;
+        case 'escape': // Escape - Detener
+          this.stopAnimation();
+          break;
+      }
     });
   }
 
@@ -357,6 +729,18 @@ document.addEventListener('DOMContentLoaded', () => {
   window.stateManager = stateManager;
   
   console.log('Calendario Twitch inicializado correctamente');
+  console.log('=== CONTROLES DE ANIMACIÓN ===');
+  console.log('Espacio: Pausar/Reanudar animación');
+  console.log('S: Detener animación');
+  console.log('R: Reiniciar animación');
+  console.log('Escape: Detener animación');
+  console.log('==============================');
+  
+  // Exponer métodos de control globalmente para debugging
+  window.pauseAnimation = () => calendar.pauseAnimation();
+  window.resumeAnimation = () => calendar.resumeAnimation();
+  window.stopAnimation = () => calendar.stopAnimation();
+  window.restartAnimation = () => calendar.restartAnimation();
 });
 
 // ===== FUNCIONES UTILITARIAS =====

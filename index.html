@@ -8,9 +8,25 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <main class="container">
-    <!-- El contenido será generado dinámicamente por JavaScript -->
-  </main>
+  <!-- Indicador de estado de animación -->
+  <div id="animation-status" class="animation-status">
+    <span class="status-text">Animación iniciando...</span>
+    <div class="status-controls">
+      <span class="control-hint">Espacio: Pausar/Reanudar | S: Detener | R: Reiniciar</span>
+    </div>
+  </div>
+  
+  <!-- Botón para activar animación -->
+  <div class="animation-controls">
+    <button id="start-animation-btn" class="animation-btn">
+      🎬 Repetir Animación
+    </button>
+  </div>
+  
+  <!-- Contenedor principal del calendario -->
+  <div class="container">
+    <!-- Las tarjetas se generarán dinámicamente aquí -->
+  </div>
   
   <script src="./script.js"></script>
 </body>

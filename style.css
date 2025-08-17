@@ -7,7 +7,7 @@
   --color-accent: #fbbf24;
   --color-text-light: #e5e7eb;
   --color-text-white: #ffffff;
-  --color-background: #000000;
+  --color-background: #00000000;
   
   /* Espaciado */
   --spacing-xs: 0.2em;
@@ -17,11 +17,13 @@
   --spacing-xl: 1em;
   --spacing-xxl: 1.2em;
   
-  /* Tamaños de fuente */
-  --font-size-xs: 0.75em;
-  --font-size-sm: 0.8em;
-  --font-size-md: 0.9em;
-  --font-size-lg: 1.4em;
+  /* Tamaños de fuente - CASI ORIGINALES, solo mínimamente más grandes */
+  --font-size-xs: 0.77em;     /* Era 0.75em - casi igual */
+  --font-size-sm: 0.82em;     /* Era 0.8em - casi igual */
+  --font-size-md: 0.92em;     /* Era 0.9em - casi igual */
+  --font-size-lg: 1.45em;     /* Era 1.4em - casi igual */
+  --font-size-xl: 0.85em;     /* Para horarios - casi igual al original */
+  --font-size-xxl: 0.95em;    /* Para horarios principales - casi igual al original */
   
   /* Bordes y sombras */
   --border-radius-sm: 12px;
@@ -50,8 +52,140 @@ body {
   background: var(--color-background);
   font-family: sans-serif;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+/* ===== INDICADOR DE ESTADO DE ANIMACIÓN ===== */
+.animation-status {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--color-text-white);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  border: 2px solid var(--color-primary);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  text-align: center;
+  min-width: 300px;
+  box-shadow: 0 4px 20px rgba(145, 71, 255, 0.3);
+  transition: all var(--transition-medium);
+}
+
+/* ===== CONTROLES DE ANIMACIÓN ===== */
+.animation-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  text-align: center;
+}
+
+.animation-btn {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--color-text-white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  box-shadow: 0 4px 15px rgba(145, 71, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  min-width: 180px;
+}
+
+.animation-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(145, 71, 255, 0.6);
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-darker));
+}
+
+.animation-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(145, 71, 255, 0.4);
+}
+
+.animation-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===== ESTADOS DEL INDICADOR ===== */
+.animation-status.status-entering {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 20px rgba(145, 71, 255, 0.6);
+}
+
+.animation-status.status-exiting {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.6);
+}
+
+.animation-status.status-waiting {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+}
+
+.animation-status.status-paused {
+  border-color: #ef4444;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.6);
+}
+
+.animation-status.status-resumed {
+  border-color: #10b981;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.6);
+}
+
+.animation-status.status-stopped {
+  border-color: #6b7280;
+  box-shadow: 0 4px 20px rgba(107, 114, 128, 0.6);
+}
+
+.animation-status.status-restarting {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 20px rgba(145, 71, 255, 0.8);
+  animation: restartPulse 1s ease-in-out infinite;
+}
+
+.animation-status.status-completed {
+  border-color: #10b981;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.6);
+  background: rgba(0, 0, 0, 0.9);
+}
+
+@keyframes restartPulse {
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.05); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+.status-text {
+  display: block;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-accent);
+}
+
+.status-controls {
+  font-size: var(--font-size-sm);
+  opacity: 0.8;
+}
+
+.control-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
 }
 
 /* ===== LAYOUT PRINCIPAL ===== */
@@ -60,41 +194,133 @@ body {
   justify-content: center;
   align-items: center;
   margin: 10vmin;
+  margin-bottom: 80px; /* Espacio para el botón de animación */
   overflow: hidden;
   transform: skew(5deg);
   gap: var(--spacing-xl);
+  margin-top: 80px; /* Espacio para el indicador de estado */
 }
 
 /* ===== COMPONENTE TARJETA ===== */
 .card {
   flex: 1;
   transition: all var(--transition-very-slow);
-  height: 75vmin;
+  height: 75.5vmin; /* Reducido de 76vmin a prácticamente el original de 75vmin */
   position: relative;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  /* Estilos para animación */
+  transform: translateX(0);
+  opacity: 1;
+  will-change: transform, opacity;
+}
+
+/* ===== ANIMACIONES DE ENTRADA Y SALIDA ===== */
+.card.animating-in {
+  animation: slideInFromLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.card.animating-out {
+  animation: slideOutToLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100vw);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100vw);
+    opacity: 0;
+  }
+}
+
+/* ===== ESTADOS DE ANIMACIÓN ===== */
+.card[style*="translateX(-100vw)"] {
+  transform: translateX(-100vw) !important;
+  opacity: 0 !important;
+}
+
+.card[style*="opacity: 0"] {
+  opacity: 0 !important;
+}
+
+/* ===== INDICADORES DE ESTADO DE ANIMACIÓN ===== */
+.card.animating-in {
+  z-index: 100;
+  box-shadow: 0 0 30px rgba(145, 71, 255, 0.6);
+}
+
+.card.animating-out {
+  z-index: 100;
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+}
+
+/* ===== EFECTOS DE TRANSICIÓN MEJORADOS ===== */
+.card {
+  transition: transform var(--transition-very-slow), 
+              opacity var(--transition-very-slow),
+              all var(--transition-very-slow),
+              box-shadow var(--transition-medium);
 }
 
 .card:not(:nth-child(6)) {
   margin-right: var(--spacing-xl);
 }
 
+/* ===== NOMBRE DEL JUEGO ===== */
+.card__game {
+  color: var(--color-text-white);
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--spacing-md) var(--spacing-lg);
+  transform: none;
+  transition: all var(--transition-slow);
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  right: var(--spacing-md);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  white-space: nowrap;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.5px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-md);
+  z-index: 20;
+}
+
 /* ===== CABECERA DE TARJETA ===== */
 .card__head {
   color: var(--color-text-white);
-  background: var(--color-primary);
+  background: linear-gradient(90deg, rgba(145, 71, 255, 0.85), rgba(124, 58, 237, 0.85), rgba(109, 40, 217, 0.85));
   padding: var(--spacing-lg);
   transform: rotate(-90deg);
   transform-origin: 0% 0%;
   transition: all var(--transition-slow);
   min-width: 100%;
-  text-align: center;
   position: absolute;
-  bottom: 120px;
+  bottom: 197px;
   left: 0;
   font-size: var(--font-size-lg);
   font-weight: bold;
   white-space: nowrap;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   letter-spacing: 1px;
+  text-align: center; /* Restaurado el text-align */
 }
 
 /* ===== SECCIÓN DE TIEMPO ===== */
@@ -103,9 +329,13 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark), var(--color-primary-darker));
+  background: linear-gradient(90deg, 
+    rgba(145, 71, 255, 0.85), 
+    rgba(124, 58, 237, 0.85), 
+    rgba(109, 40, 217, 0.85)
+  );
   color: var(--color-text-white);
-  padding: var(--spacing-md) var(--spacing-xl);
+  padding: var(--spacing-lg) var(--spacing-xl);
   font-size: var(--font-size-sm);
   font-weight: bold;
   text-align: center;
@@ -121,54 +351,65 @@ body {
   flex-direction: column;
   gap: var(--spacing-md);
   align-items: center;
-  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  
   position: relative;
-  min-height: 80px;
+  min-height: 82px;
+  background: rgba(0, 0, 0, 0.3); /* Fondo con transparencia */
+  backdrop-filter: blur(15px); /* Efecto glass con blur */
+  -webkit-backdrop-filter: blur(15px); /* Soporte para Safari */
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil con transparencia */
+  margin: var(--spacing-sm);
 }
 
 .time-zone {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  background: var(--shadow-light);
+  background: rgba(0, 0, 0, 0.25); /* Reducida la opacidad para más transparencia */
   padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius-md);
-  border: 1px solid var(--shadow-dark);
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Borde más sutil con transparencia */
   transition: all var(--transition-fast);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px); /* Efecto glass más pronunciado */
+  -webkit-backdrop-filter: blur(20px); /* Soporte para Safari */
   justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
 }
 
 /* ===== ZONA HORARIA ESPAÑA (ESPECIAL) ===== */
 .time-zone.spain {
   width: 100%;
   transform: scale(1.05);
-  background: var(--shadow-medium);
-  border-color: var(--shadow-dark);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4); /* Fondo más oscuro pero con transparencia */
+  border-color: rgba(251, 191, 36, 0.6); /* Borde dorado con transparencia */
+  border-width: 2px; /* Reducido de 3px a 2px para mejor efecto glass */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 20px rgba(251, 191, 36, 0.2); /* Sombra más sutil */
   z-index: 15;
   padding: var(--spacing-md) var(--spacing-xl);
   margin-bottom: var(--spacing-md);
+  backdrop-filter: blur(25px); /* Efecto glass más pronunciado para España */
+  -webkit-backdrop-filter: blur(25px); /* Soporte para Safari */
 }
 
 /* ===== CONTENEDOR PARA LOS OTROS PAÍSES ===== */
 .other-time-zones {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-sm); /* Reducido de var(--spacing-md) */
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .other-time-zones .time-zone {
   flex: 0 0 auto;
-  min-width: 120px;
+  min-width: 121px; /* Reducido de 122px a prácticamente el original de 120px */
 }
 
 /* ===== ESTILOS ESPECÍFICOS PARA ESPAÑA ===== */
 .time-zone.spain .flag {
   position: relative;
-  width: 14px;
-  height: 10px;
+  width: 18px; /* Aumentado de 14px */
+  height: 13px; /* Aumentado de 10px */
   background: linear-gradient(
     to bottom,
     #c60b1e 0%,
@@ -181,21 +422,21 @@ body {
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--shadow-dark);
   display: inline-block;
-  margin-right: var(--spacing-sm);
+  margin-right: var(--spacing-md); /* Aumentado el margin */
 }
 
 .time-zone.spain .country {
-  font-size: 0.85em;
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-text-white);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Sombra más pronunciada */
 }
 
 .time-zone.spain .time {
-  font-size: 0.9em;
+  font-size: var(--font-size-xxl); /* Aumentado significativamente de 0.9em */
   font-weight: 800;
   color: var(--color-text-white);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); /* Sombra más pronunciada */
 }
 
 /* ===== ELEMENTOS DE ZONA HORARIA ===== */
@@ -204,24 +445,68 @@ body {
   font-weight: 700;
   color: var(--color-accent);
   background: rgba(0, 0, 0, 0.3);
-  padding: var(--spacing-xs) var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius-sm);
   border: 1px solid var(--shadow-medium);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .country {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-md);
   font-weight: 600;
   color: var(--color-text-light);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+  min-width: 60px; /* Ancho mínimo para evitar saltos */
+  text-align: center;
 }
 
 .time {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xxl); /* Cambiado de var(--font-size-xl) a var(--font-size-xxl) para que sea igual al de España */
   font-weight: 700;
   color: var(--color-text-white);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3); /* Fondo sutil para el tiempo */
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--shadow-medium);
+  min-width: 80px; /* Ancho mínimo para evitar saltos */
+  text-align: center;
+  letter-spacing: 1px; /* Espaciado entre letras para mejor legibilidad */
+}
+
+/* ===== MEJORAS ADICIONALES PARA HORARIOS ===== */
+.time-zone:hover .time {
+  background: rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+  transition: all var(--transition-fast);
+}
+
+.time-zone:hover .country {
+  color: var(--color-text-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* ===== ANIMACIONES PARA MEJORAR LA EXPERIENCIA ===== */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.time-zone.spain .time {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/* ===== MEJORAS PARA LA LEGIBILIDAD ===== */
+.card__time::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  opacity: 0.7;
 }
 
 /* ===== IMAGEN DE TARJETA ===== */
@@ -230,7 +515,9 @@ body {
   height: 100%;
   object-fit: cover;
   transition: all var(--transition-very-slow);
-  filter: grayscale(40%);
+  filter: grayscale(30%); /* Reducido de 40% para menos opacidad */
+  backdrop-filter: blur(5px); /* Efecto glass sutil */
+  -webkit-backdrop-filter: blur(5px); /* Soporte para Safari */
 }
 
 /* ===== ESTADOS HOVER Y INTERACTIVOS ===== */
@@ -243,28 +530,158 @@ body {
   transform: translateY(-2px);
 }
 
+/* ===== ANIMACIÓN DE PULSO PARA CARDS ACTIVAS ===== */
+@keyframes activePulse {
+  0% { box-shadow: 0 0 20px rgba(145, 71, 255, 0.4); }
+  50% { box-shadow: 0 0 40px rgba(145, 71, 255, 0.8); }
+  100% { box-shadow: 0 0 20px rgba(145, 71, 255, 0.4); }
+}
+
+.card.animating-in,
+.card.animating-out {
+  animation: activePulse 2s ease-in-out infinite;
+}
+
 /* ===== RESPONSIVIDAD ===== */
 @media (max-width: 768px) {
+  .animation-status {
+    min-width: 280px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    top: 10px;
+  }
+  
+  .status-text {
+    font-size: var(--font-size-sm);
+  }
+  
+  .control-hint {
+    font-size: 0.7em;
+  }
+  
+  .animation-controls {
+    bottom: 15px;
+  }
+  
+  .animation-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    min-width: 160px;
+  }
+  
   .container {
     flex-direction: column;
     transform: none;
     margin: 5vmin;
+    gap: var(--spacing-lg);
+    margin-top: 80px; /* Reducido ya que el botón está abajo */
+    margin-bottom: 80px; /* Espacio para el botón */
   }
   
   .card {
-    height: 50vmin;
+    height: 60vmin; /* Aumentado de 50vmin para móviles */
     margin-right: 0 !important;
     margin-bottom: var(--spacing-xl);
   }
   
+  .card__game {
+    top: 100px; /* Ajustado para móviles */
+    font-size: var(--font-size-xs);
+  }
+  
+  .card__head {
+    bottom: 100px; /* Ajustado para móviles */
+    font-size: var(--font-size-md);
+  }
+  
   .time-zones {
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-md);
+    min-height: 100px; /* Ajustado para móviles */
   }
   
   .time-zone {
     justify-content: center;
     margin: 0 !important;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+  
+  .other-time-zones .time-zone {
+    min-width: 120px; /* Ajustado para móviles */
+  }
+  
+  /* Ajustar tamaños de fuente para móviles */
+  .time-zone.spain .time {
+    font-size: var(--font-size-xl); /* Reducido para móviles */
+  }
+  
+  .time-zone.spain .country {
+    font-size: var(--font-size-md); /* Reducido para móviles */
+  }
+  
+  .time {
+    font-size: var(--font-size-lg); /* Reducido para móviles */
+  }
+  
+  .country {
+    font-size: var(--font-size-sm); /* Reducido para móviles */
+  }
+}
+
+@media (max-width: 480px) {
+  .animation-status {
+    min-width: 250px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    top: 5px;
+  }
+  
+  .status-text {
+    font-size: var(--font-size-xs);
+  }
+  
+  .control-hint {
+    font-size: 0.65em;
+  }
+  
+  .animation-controls {
+    bottom: 10px;
+  }
+  
+  .animation-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    min-width: 140px;
+  }
+  
+  .container {
+    margin: 3vmin;
+    gap: var(--spacing-md);
+    margin-top: 70px; /* Ajustado para pantallas muy pequeñas */
+    margin-bottom: 70px; /* Espacio para el botón */
+  }
+  
+  .card {
+    height: 70vmin;
+  }
+  
+  .card__game {
+    top: 80px; /* Ajustado para pantallas muy pequeñas */
+    font-size: var(--font-size-xs);
+  }
+  
+  .card__time {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+  
+  .time-zones {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+  }
+  
+  .time-zone {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+  
+  .other-time-zones .time-zone {
+    min-width: 100px;
   }
 }
 
