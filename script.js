@@ -54,15 +54,25 @@ const SCHEDULE_DATA = {
       colombia: "10:00",
       chile: "11:00"
     }
+  },
+  sabado: {
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755393936/cover_ywnqgm.avif",
+    times: {
+      spain: "16:00",
+      mexico: "09:00",
+      argentina: "12:00",
+      colombia: "10:00",
+      chile: "11:00"
+    }
   }
 };
 
 const COUNTRIES = {
   spain: { name: "España", flag: "", isSpecial: true },
-  mexico: { name: "México", flag: "MX", isSpecial: false },
-  argentina: { name: "Argentina", flag: "AR", isSpecial: false },
-  colombia: { name: "Colombia", flag: "CO", isSpecial: false },
-  chile: { name: "Chile", flag: "CL", isSpecial: false }
+  mexico: { name: "", flag: "MX", isSpecial: false },
+  argentina: { name: "", flag: "AR", isSpecial: false },
+  colombia: { name: "", flag: "CO", isSpecial: false },
+  chile: { name: "", flag: "CL", isSpecial: false }
 };
 
 // ===== CLASE PRINCIPAL DEL CALENDARIO =====

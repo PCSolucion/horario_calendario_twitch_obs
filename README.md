@@ -2,7 +2,7 @@
 
 ## 📋 Descripción
 
-Este proyecto ha sido refactorizado siguiendo principios SOLID y buenas prácticas de desarrollo para mejorar la mantenibilidad, legibilidad y escalabilidad del código.
+Este proyecto ha sido refactorizado siguiendo principios SOLID y buenas prácticas de desarrollo para mejorar la mantenibilidad, legibilidad y escalabilidad del código. El calendario muestra horarios de transmisión de Twitch para 6 días de la semana (Lunes a Sábado) en diferentes zonas horarias.
 
 ## 🚀 Mejoras Implementadas
 
@@ -96,7 +96,7 @@ calendario-obs/
 ## 📱 Características
 
 ### **Funcionalidades Principales**
-- ✅ Calendario de 5 días (Lunes a Viernes)
+- ✅ Calendario de 6 días (Lunes a Sábado)
 - ✅ Zonas horarias para 5 países
 - ✅ Destacado especial para España
 - ✅ Responsive design
