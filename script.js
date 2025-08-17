@@ -142,12 +142,18 @@ class TwitchCalendar {
    * Crea las zonas horarias para un día
    */
   createTimeZones(times) {
-    return Object.entries(times).map(([country, time]) => {
+    // España primero
+    const spainData = COUNTRIES.spain;
+    const spainTime = times.spain;
+    
+    // Otros países en orden
+    const otherCountries = ['mexico', 'argentina', 'colombia', 'chile'];
+    const otherTimeZones = otherCountries.map(country => {
       const countryData = COUNTRIES[country];
-      const specialClass = countryData.isSpecial ? ' spain' : '';
+      const time = times[country];
       
       return `
-        <div class="time-zone${specialClass}" data-country="${country}">
+        <div class="time-zone" data-country="${country}">
           <span class="flag" aria-label="Bandera de ${countryData.name}">
             ${countryData.flag}
           </span>
@@ -156,6 +162,19 @@ class TwitchCalendar {
         </div>
       `;
     }).join('');
+    
+    return `
+      <div class="time-zone spain" data-country="spain">
+        <span class="flag" aria-label="Bandera de ${spainData.name}">
+          ${spainData.flag}
+        </span>
+        <span class="country">${spainData.name}</span>
+        <time class="time" datetime="${spainTime}">${spainTime}</time>
+      </div>
+      <div class="other-time-zones">
+        ${otherTimeZones}
+      </div>
+    `;
   }
 
   /**
