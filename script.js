@@ -6,63 +6,63 @@
 // ===== CONFIGURACIÓN DE DATOS =====
 const SCHEDULE_DATA = {
   lunes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
-    game: "New World Aeternum",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
+    game: "DAYS GONE",
     times: {
-      spain: "16:00",
-      mexico: "09:00",
-      argentina: "12:00",
-      colombia: "10:00",
-      chile: "11:00"
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   martes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
-    game: "New World Aeternum",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
+    game: "DAYS GONE",
     times: {
-      spain: "16:00",
-      mexico: "09:00",
-      argentina: "12:00",
-      colombia: "10:00",
-      chile: "11:00"
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   miercoles: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
-    game: "New World Aeternum",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
+    game: "DAYS GONE",
     times: {
-      spain: "16:00",
-      mexico: "09:00",
-      argentina: "12:00",
-      colombia: "10:00",
-      chile: "11:00"
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   jueves: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
-    game: "New World Aeternum",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408278/game-of-thrones-1-1920x1080_ffobjf.webp",
+    game: "GOT: KINGSROAD",
     times: {
-      spain: "16:00",
-      mexico: "09:00",
-      argentina: "12:00",
-      colombia: "10:00",
-      chile: "11:00"
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   viernes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408278/game-of-thrones-1-1920x1080_ffobjf.webp",
-    game: "GoT: Kingsroad",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515388/71d83ca68de7c699b70139928cebfc44_eaquhx.jpg",
+    game: "GTA ONLINE",
     times: {
-      spain: "16:00",
-      mexico: "09:00",
-      argentina: "12:00",
-      colombia: "10:00",
-      chile: "11:00"
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 7 = 11:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   sabado: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408096/thorpe_muxukk.png",
-    game: "New World Aeternum",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
+    game: "DAYS GONE",
     times: {
       spain: "11:00", /* Cambiado de 16:00 a 11:00 (mañana) */
       mexico: "04:00", /* 7 horas menos que España (11:00 - 7 = 04:00) */
@@ -252,12 +252,12 @@ class TwitchCalendar {
     this.updateAnimationButtonState();
     await this.animationManager.animateCardsIn(Array.from(cards));
     
-    // Después de que todas las cards estén visibles, esperar 3 segundos antes de iniciar la salida
-    this.updateAnimationStatus('Cards visibles - Esperando 3 segundos...', 'waiting');
+    // Después de que todas las cards estén visibles, esperar 5 segundos antes de iniciar la salida
+    this.updateAnimationStatus('Cards visibles - Esperando 5 segundos...', 'waiting');
     this.updateAnimationButtonState();
     setTimeout(() => {
       this.startExitAnimation();
-    }, 3000); // 3 segundos de pausa antes de empezar a salir
+    }, 660000); // 660 segundos de pausa antes de empezar a salir
   }
 
   /**
@@ -378,7 +378,8 @@ class TwitchCalendar {
    */
   createDayCard(day, data) {
     const article = document.createElement('article');
-    article.className = 'card';
+    // Añadir clase 'sabado' además de 'card' si es sábado
+    article.className = day === 'sabado' ? 'card sabado' : 'card';
     article.dataset.day = day;
     
     // Capitalizar primera letra del día
