@@ -182,6 +182,9 @@ class AnimationManager {
       card.classList.remove('animating-in', 'animating-out');
       card.style.transform = '';
       card.style.opacity = '';
+      
+      // NO tocar los estilos de borde y sombra si es la tarjeta del día actual
+      // La animación de parpadeo se maneja por separado
     });
   }
 
@@ -252,6 +255,9 @@ class TwitchCalendar {
     this.updateAnimationButtonState();
     await this.animationManager.animateCardsIn(Array.from(cards));
     
+    // Asegurar que el resaltado del día actual persista después de la animación
+    this.ensureCurrentDayHighlight();
+    
     // Después de que todas las cards estén visibles, esperar 5 segundos antes de iniciar la salida
     this.updateAnimationStatus('Cards visibles - Esperando 5 segundos...', 'waiting');
     this.updateAnimationButtonState();
@@ -280,6 +286,9 @@ class TwitchCalendar {
   async restartAnimationCycle() {
     const cards = this.container.querySelectorAll('.card');
     
+    // Detener todas las animaciones de parpadeo
+    this.stopAllBlinkingAnimations();
+    
     // Reiniciar estado de las cards
     this.animationManager.resetCards(Array.from(cards));
     
@@ -289,6 +298,66 @@ class TwitchCalendar {
     // Pequeño delay y reiniciar
     await this.animationManager.delay(500);
     this.startEntryAnimation();
+  }
+
+  /**
+   * Detiene todas las animaciones de parpadeo
+   */
+  stopAllBlinkingAnimations() {
+    const cards = this.container.querySelectorAll('.card');
+    cards.forEach(card => {
+      if (card.dataset.blinkInterval) {
+        clearInterval(parseInt(card.dataset.blinkInterval));
+        delete card.dataset.blinkInterval;
+      }
+    });
+  }
+
+  /**
+   * Asegura que el resaltado del día actual persista después de las animaciones
+   */
+  ensureCurrentDayHighlight() {
+    // Pequeño delay para asegurar que las animaciones hayan terminado
+    setTimeout(() => {
+      this.highlightCurrentDay();
+      // Forzar la animación de parpadeo con JavaScript
+      this.startBlinkingAnimation();
+    }, 100);
+  }
+
+  /**
+   * Inicia la animación de parpadeo usando JavaScript para mayor control
+   */
+  startBlinkingAnimation() {
+    const currentCard = this.container.querySelector(`[data-day="${this.currentDay}"]`);
+    if (!currentCard) return;
+
+    // Remover cualquier animación CSS previa
+    currentCard.style.animation = '';
+    
+    // Aplicar estilos iniciales
+    currentCard.style.border = '3px solid var(--color-primary)';
+    currentCard.style.boxShadow = '0 0 25px var(--color-primary)';
+    
+    let isVisible = true;
+    const blinkInterval = setInterval(() => {
+      if (isVisible) {
+        // Estado "apagado"
+        currentCard.style.border = '3px solid rgba(145, 71, 255, 0.3)';
+        currentCard.style.boxShadow = '0 0 10px rgba(145, 71, 255, 0.3)';
+        isVisible = false;
+      } else {
+        // Estado "encendido"
+        currentCard.style.border = '3px solid var(--color-primary)';
+        currentCard.style.boxShadow = '0 0 25px var(--color-primary)';
+        isVisible = true;
+      }
+    }, 1500); // Cambio cada 1.5 segundos (3 segundos total por ciclo)
+
+    // Guardar el intervalo para poder detenerlo si es necesario
+    currentCard.dataset.blinkInterval = blinkInterval;
+    
+    console.log('Animación de parpadeo iniciada con JavaScript');
   }
 
   /**
@@ -371,6 +440,9 @@ class TwitchCalendar {
       const cardElement = this.createDayCard(day, data);
       this.container.appendChild(cardElement);
     });
+    
+    // Re-aplicar el resaltado del día actual después del renderizado
+    this.highlightCurrentDay();
   }
 
   /**
@@ -423,14 +495,10 @@ class TwitchCalendar {
     const targetDayNumber = dayMap[targetDay];
     const daysUntilTarget = (targetDayNumber - currentDay + 7) % 7;
     
-    // Si es hoy, mostrar "Hoy", si no, calcular la fecha
-    if (daysUntilTarget === 0) {
-      return 'Hoy';
-    } else {
-      const targetDate = new Date(today);
-      targetDate.setDate(today.getDate() + daysUntilTarget);
-      return targetDate.getDate(); // Solo el número del día
-    }
+    // Calcular la fecha para todos los días
+    const targetDate = new Date(today);
+    targetDate.setDate(today.getDate() + daysUntilTarget);
+    return targetDate.getDate(); // Solo el número del día
   }
 
   /**
@@ -658,8 +726,28 @@ class TwitchCalendar {
   highlightCurrentDay() {
     const currentCard = this.container.querySelector(`[data-day="${this.currentDay}"]`);
     if (currentCard) {
-      currentCard.style.border = '2px solid var(--color-accent)';
-      currentCard.style.boxShadow = '0 0 20px var(--color-accent)';
+      // Remover la clase anterior si existe
+      this.container.querySelectorAll('.current-day-highlight').forEach(card => {
+        card.classList.remove('current-day-highlight');
+        // Detener cualquier animación de parpadeo previa
+        if (card.dataset.blinkInterval) {
+          clearInterval(parseInt(card.dataset.blinkInterval));
+          delete card.dataset.blinkInterval;
+        }
+      });
+      
+      // Añadir la clase al día actual
+      currentCard.classList.add('current-day-highlight');
+      
+      // Verificar que la clase se aplicó correctamente
+      console.log(`Día actual resaltado: ${this.currentDay}`);
+      console.log('Clases de la tarjeta:', currentCard.className);
+      console.log('¿Tiene la clase current-day-highlight?', currentCard.classList.contains('current-day-highlight'));
+      
+      // Iniciar la animación de parpadeo inmediatamente
+      this.startBlinkingAnimation();
+    } else {
+      console.log(`No se encontró la tarjeta para el día: ${this.currentDay}`);
     }
   }
 
