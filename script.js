@@ -6,30 +6,30 @@
 // ===== CONFIGURACIÓN DE DATOS =====
 const SCHEDULE_DATA = {
   lunes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
-    game: "DAYS GONE",
+    image: "https://cdn.prod.website-files.com/66bb5e6110dac0834d635a32/66bc751fc6927534f728c4da_NW_OPENGRAPH_1200x630.webp",
+    game: "NEW WORLD AETERNUM",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "19:00",
+      mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "15:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "13:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "14:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   martes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
-    game: "DAYS GONE",
+    image: "https://cdn.prod.website-files.com/66bb5e6110dac0834d635a32/66bc751fc6927534f728c4da_NW_OPENGRAPH_1200x630.webp",
+    game: "NEW WORLD AETERNUM",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "19:00",
+      mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "15:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "13:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "14:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   miercoles: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
-    game: "DAYS GONE",
+    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
+    game: "RESIDENT EVIL 4 REMAKE",
     times: {
       spain: "20:00",
       mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
@@ -50,19 +50,19 @@ const SCHEDULE_DATA = {
     }
   },
   viernes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515388/71d83ca68de7c699b70139928cebfc44_eaquhx.jpg",
-    game: "GTA ONLINE",
+    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
+    game: "RESIDENT EVIL 4 REMAKE",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 7 = 11:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "19:00",
+      mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "15:00", /* 4 horas menos que España (20:00 - 7 = 11:00) */
+      colombia: "13:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "14:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   sabado: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755515162/days-gone-deacon-st-768x1024-9809_gixv4o.jpg",
-    game: "DAYS GONE",
+    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
+    game: "RESIDENT EVIL 4 REMAKE",
     times: {
       spain: "11:00", /* Cambiado de 16:00 a 11:00 (mañana) */
       mexico: "04:00", /* 7 horas menos que España (11:00 - 7 = 04:00) */
