@@ -39,8 +39,8 @@ const SCHEDULE_DATA = {
     }
   },
   jueves: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408278/game-of-thrones-1-1920x1080_ffobjf.webp",
-    game: "GOT: KINGSROAD",
+    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
+    game: "RESIDENT EVIL 4 REMAKE",
     times: {
       spain: "20:00",
       mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
@@ -50,8 +50,8 @@ const SCHEDULE_DATA = {
     }
   },
   viernes: {
-    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
-    game: "RESIDENT EVIL 4 REMAKE",
+    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408278/game-of-thrones-1-1920x1080_ffobjf.webp",
+    game: "GOT: KINGSROAD",
     times: {
       spain: "19:00",
       mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
