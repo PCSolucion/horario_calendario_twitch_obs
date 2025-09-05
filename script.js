@@ -6,8 +6,8 @@
 // ===== CONFIGURACIÓN DE DATOS =====
 const SCHEDULE_DATA = {
   lunes: {
-    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
-    game: "RESIDENT EVIL 4 REMAKE",
+    image: "https://artfiles.alphacoders.com/121/121227.jpg",
+    game: "A PLAGUE TALE: INNOCENCE",
     times: {
       spain: "21:00",
       mexico: "14:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
@@ -20,16 +20,16 @@ const SCHEDULE_DATA = {
     image: "https://cdn.prod.website-files.com/66bb5e6110dac0834d635a32/66bc751fc6927534f728c4da_NW_OPENGRAPH_1200x630.webp",
     game: "NEW WORLD AETERNUM",
     times: {
-      spain: "19:00",
-      mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "15:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "13:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "14:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   miercoles: {
-    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
-    game: "RESIDENT EVIL 4 REMAKE",
+    image: "https://artfiles.alphacoders.com/121/121227.jpg",
+    game: "A PLAGUE TALE: INNOCENCE",
     times: {
       spain: "20:00",
       mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
@@ -39,8 +39,8 @@ const SCHEDULE_DATA = {
     }
   },
   jueves: {
-    image: "https://i.pinimg.com/originals/ec/6a/f7/ec6af7c1cca50a996abcedbcfff5b0c4.jpg",
-    game: "RESIDENT EVIL 4 REMAKE",
+    image: "https://artfiles.alphacoders.com/121/121227.jpg",
+    game: "A PLAGUE TALE: INNOCENCE",
     times: {
       spain: "20:00",
       mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
