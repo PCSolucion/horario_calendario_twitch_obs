@@ -9,11 +9,11 @@ const SCHEDULE_DATA = {
     image: "https://artfiles.alphacoders.com/121/121227.jpg",
     game: "A PLAGUE TALE: INNOCENCE",
     times: {
-      spain: "21:00",
-      mexico: "14:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "17:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "15:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "16:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "19:00",
+      mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "115:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "13:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "12:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   martes: {
