@@ -6,14 +6,14 @@
 // ===== CONFIGURACIÓN DE DATOS =====
 const SCHEDULE_DATA = {
   lunes: {
-    image: "https://artfiles.alphacoders.com/121/121227.jpg",
-    game: "A PLAGUE TALE: INNOCENCE",
+    image: "https://m.media-amazon.com/images/I/715FBWApFhL._UF1000,1000_QL80_.jpg",
+    game: "FINAL FANTASY XV",
     times: {
-      spain: "19:00",
-      mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "115:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "13:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "12:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "13:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   martes: {
@@ -28,8 +28,8 @@ const SCHEDULE_DATA = {
     }
   },
   miercoles: {
-    image: "https://artfiles.alphacoders.com/121/121227.jpg",
-    game: "A PLAGUE TALE: INNOCENCE",
+    image: "https://m.media-amazon.com/images/I/715FBWApFhL._UF1000,1000_QL80_.jpg",
+    game: "FINAL FANTASY XV",
     times: {
       spain: "20:00",
       mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
@@ -39,8 +39,8 @@ const SCHEDULE_DATA = {
     }
   },
   jueves: {
-    image: "https://artfiles.alphacoders.com/121/121227.jpg",
-    game: "A PLAGUE TALE: INNOCENCE",
+    image: "https://m.media-amazon.com/images/I/715FBWApFhL._UF1000,1000_QL80_.jpg",
+    game: "FINAL FANTASY XV",
     times: {
       spain: "20:00",
       mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
@@ -50,14 +50,14 @@ const SCHEDULE_DATA = {
     }
   },
   viernes: {
-    image: "https://res.cloudinary.com/pcsolucion/image/upload/v1755408278/game-of-thrones-1-1920x1080_ffobjf.webp",
-    game: "GOT: KINGSROAD",
+    image: "https://cdn.prod.website-files.com/66bb5e6110dac0834d635a32/66bc751fc6927534f728c4da_NW_OPENGRAPH_1200x630.webp",
+    game: "NEW WORLD AETERNUM",
     times: {
-      spain: "19:00",
-      mexico: "12:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "15:00", /* 4 horas menos que España (20:00 - 7 = 11:00) */
-      colombia: "13:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "14:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "20:00",
+      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
     }
   },
   sabado: {
