@@ -6,63 +6,78 @@
 // ===== CONFIGURACIÓN DE DATOS =====
 const SCHEDULE_DATA = {
   lunes: {
-    image: "https://m.media-amazon.com/images/I/715FBWApFhL._UF1000,1000_QL80_.jpg",
-    game: "FINAL FANTASY XV",
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "13:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "18:00", /* Referencia principal */
+      mexico: "11:00", /* 7 horas menos que España (18:00 - 7 = 11:00) */
+      argentina: "14:00", /* 4 horas menos que España (18:00 - 4 = 14:00) */
+      colombia: "12:00", /* 6 horas menos que España (18:00 - 6 = 12:00) */
+      chile: "13:00" /* 5 horas menos que España (18:00 - 5 = 13:00) */
     }
   },
   martes: {
-    image: "https://cdn.prod.website-files.com/66bb5e6110dac0834d635a32/66bc751fc6927534f728c4da_NW_OPENGRAPH_1200x630.webp",
-    game: "NEW WORLD AETERNUM",
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
     }
   },
   miercoles: {
-    image: "https://m.media-amazon.com/images/I/715FBWApFhL._UF1000,1000_QL80_.jpg",
-    game: "FINAL FANTASY XV",
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
     }
   },
   jueves: {
-    image: "https://m.media-amazon.com/images/I/715FBWApFhL._UF1000,1000_QL80_.jpg",
-    game: "FINAL FANTASY XV",
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
     }
   },
   viernes: {
-    image: "https://cdn.prod.website-files.com/66bb5e6110dac0834d635a32/66bc751fc6927534f728c4da_NW_OPENGRAPH_1200x630.webp",
-    game: "NEW WORLD AETERNUM",
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
     times: {
-      spain: "20:00",
-      mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
-      argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
-      colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
-      chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
     }
   },
   sabado: {
-    image: "https://cdn.prod.website-files.com/66bb5e6110dac0834d635a32/66bc751fc6927534f728c4da_NW_OPENGRAPH_1200x630.webp",
-    game: "NEW WORLD AETERNUM",
+    image: "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg",
+    game: "NW y KINGDOM COME DELIVERANCE 2",
     times: {
       spain: "11:00", /* Cambiado de 16:00 a 11:00 (mañana) */
       mexico: "04:00", /* 7 horas menos que España (11:00 - 7 = 04:00) */
@@ -95,9 +110,9 @@ class AnimationManager {
    */
   async animateCardsIn(cards) {
     if (this.isAnimating) return;
-    
+
     this.isAnimating = true;
-    
+
     // Ocultar todas las cards inicialmente
     cards.forEach(card => {
       card.classList.add('animating-in');
@@ -111,13 +126,13 @@ class AnimationManager {
     // Animar entrada de cada card
     for (let i = 0; i < cards.length; i++) {
       const card = cards[i];
-      
+
       // Sin rotación, solo movimiento horizontal recto
-      
+
       // Animar entrada
       card.style.transform = 'translateX(0)';
       card.style.opacity = '1';
-      
+
       // Esperar antes de la siguiente card
       if (i < cards.length - 1) {
         await this.delay(this.animationDelay);
@@ -126,12 +141,12 @@ class AnimationManager {
 
     // Esperar a que termine la última animación
     await this.delay(this.animationDuration);
-    
+
     // Limpiar clases de animación
     cards.forEach(card => {
       card.classList.remove('animating-in');
     });
-    
+
     this.isAnimating = false;
   }
 
@@ -140,14 +155,14 @@ class AnimationManager {
    */
   async animateCardsOut(cards) {
     if (this.isAnimating) return;
-    
+
     this.isAnimating = true;
-    
+
     // Añadir clase de animación de salida a todas las cards simultáneamente
     cards.forEach(card => {
       card.classList.add('animating-out');
     });
-    
+
     // Animar salida de todas las cards al mismo tiempo (como una baraja)
     cards.forEach((card, index) => {
       // Sin rotación, solo movimiento horizontal recto
@@ -157,12 +172,12 @@ class AnimationManager {
 
     // Esperar a que termine la animación (mucho más lento)
     await this.delay(2000); // Ajustado para salida muy pausada como baraja
-    
+
     // Limpiar clases de animación
     cards.forEach(card => {
       card.classList.remove('animating-out');
     });
-    
+
     this.isAnimating = false;
     this.hasCompletedOnce = true; // Marcar como completada
   }
@@ -182,7 +197,7 @@ class AnimationManager {
       card.classList.remove('animating-in', 'animating-out');
       card.style.transform = '';
       card.style.opacity = '';
-      
+
       // NO tocar los estilos de borde y sombra si es la tarjeta del día actual
       // La animación de parpadeo se maneja por separado
     });
@@ -233,10 +248,10 @@ class TwitchCalendar {
     this.renderCalendar();
     this.addEventListeners();
     this.highlightCurrentDay();
-    
+
     // Configurar estado inicial del botón
     this.updateAnimationButtonState();
-    
+
     // Iniciar animación de entrada solo si no se ha completado antes
     if (!this.animationManager.hasCompleted()) {
       this.startEntryAnimation();
@@ -254,10 +269,10 @@ class TwitchCalendar {
     this.updateAnimationStatus('Entrando cards...', 'entering');
     this.updateAnimationButtonState();
     await this.animationManager.animateCardsIn(Array.from(cards));
-    
+
     // Asegurar que el resaltado del día actual persista después de la animación
     this.ensureCurrentDayHighlight();
-    
+
     // Después de que todas las cards estén visibles, esperar 5 segundos antes de iniciar la salida
     this.updateAnimationStatus('Cards visibles - Esperando 5 segundos...', 'waiting');
     this.updateAnimationButtonState();
@@ -274,7 +289,7 @@ class TwitchCalendar {
     this.updateAnimationStatus('Saliendo cards...', 'exiting');
     this.updateAnimationButtonState();
     await this.animationManager.animateCardsOut(Array.from(cards));
-    
+
     // Después de que todas las cards hayan salido, mostrar mensaje de completado
     this.updateAnimationStatus('Animación completada - Usa el botón para repetir', 'completed');
     this.updateAnimationButtonState();
@@ -285,16 +300,16 @@ class TwitchCalendar {
    */
   async restartAnimationCycle() {
     const cards = this.container.querySelectorAll('.card');
-    
+
     // Detener todas las animaciones de parpadeo
     this.stopAllBlinkingAnimations();
-    
+
     // Reiniciar estado de las cards
     this.animationManager.resetCards(Array.from(cards));
-    
+
     // Resetear el estado de completado
     this.animationManager.resetCompleted();
-    
+
     // Pequeño delay y reiniciar
     await this.animationManager.delay(500);
     this.startEntryAnimation();
@@ -334,11 +349,11 @@ class TwitchCalendar {
 
     // Remover cualquier animación CSS previa
     currentCard.style.animation = '';
-    
+
     // Aplicar estilos iniciales
     currentCard.style.border = '3px solid var(--color-primary)';
     currentCard.style.boxShadow = '0 0 25px var(--color-primary)';
-    
+
     let isVisible = true;
     const blinkInterval = setInterval(() => {
       if (isVisible) {
@@ -356,7 +371,7 @@ class TwitchCalendar {
 
     // Guardar el intervalo para poder detenerlo si es necesario
     currentCard.dataset.blinkInterval = blinkInterval;
-    
+
     console.log('Animación de parpadeo iniciada con JavaScript');
   }
 
@@ -370,7 +385,7 @@ class TwitchCalendar {
       if (statusText) {
         statusText.textContent = message;
       }
-      
+
       // Actualizar clases CSS según el estado
       statusElement.className = `animation-status status-${state}`;
     }
@@ -433,14 +448,14 @@ class TwitchCalendar {
    */
   renderCalendar() {
     if (!this.container) return;
-    
+
     this.container.innerHTML = '';
-    
+
     Object.entries(SCHEDULE_DATA).forEach(([day, data]) => {
       const cardElement = this.createDayCard(day, data);
       this.container.appendChild(cardElement);
     });
-    
+
     // Re-aplicar el resaltado del día actual después del renderizado
     this.highlightCurrentDay();
   }
@@ -453,16 +468,26 @@ class TwitchCalendar {
     // Añadir clase 'sabado' además de 'card' si es sábado
     article.className = day === 'sabado' ? 'card sabado' : 'card';
     article.dataset.day = day;
-    
+
     // Capitalizar primera letra del día
     const dayName = day.charAt(0).toUpperCase() + day.slice(1);
-    
+
     // Obtener la fecha real del día de la semana
     const realDate = this.getRealDateForDay(day);
-    
+
+    // Manejar imágenes múltiples
+    let imageHtml = '';
+    if (Array.isArray(data.image)) {
+      imageHtml = `<div class="card__images">
+        ${data.image.map(img => `<img src="${img}" alt="Juego para ${dayName}">`).join('')}
+      </div>`;
+    } else {
+      imageHtml = `<img src="${data.image}" alt="Imagen de portada para ${dayName}">`;
+    }
+
     article.innerHTML = `
-      <img src="${data.image}" alt="Imagen de portada para ${dayName}">
-      <div class="card__game">${data.game}</div>
+      ${imageHtml}
+      <div class="card__game"><span>${data.game}</span></div>
       <header class="card__head">${dayName} ${realDate}</header>
       <section class="card__time">
         <div class="time-zones">
@@ -470,7 +495,7 @@ class TwitchCalendar {
         </div>
       </section>
     `;
-    
+
     return article;
   }
 
@@ -480,7 +505,7 @@ class TwitchCalendar {
   getRealDateForDay(targetDay) {
     const today = new Date();
     const currentDay = today.getDay(); // 0 = Domingo, 1 = Lunes, etc.
-    
+
     // Mapeo de días de la semana
     const dayMap = {
       'domingo': 0,
@@ -491,10 +516,10 @@ class TwitchCalendar {
       'viernes': 5,
       'sabado': 6
     };
-    
+
     const targetDayNumber = dayMap[targetDay];
     const daysUntilTarget = (targetDayNumber - currentDay + 7) % 7;
-    
+
     // Calcular la fecha para todos los días
     const targetDate = new Date(today);
     targetDate.setDate(today.getDate() + daysUntilTarget);
@@ -508,13 +533,13 @@ class TwitchCalendar {
     // España primero
     const spainData = COUNTRIES.spain;
     const spainTime = times.spain;
-    
+
     // Otros países en orden
     const otherCountries = ['mexico', 'argentina', 'colombia', 'chile'];
     const otherTimeZones = otherCountries.map(country => {
       const countryData = COUNTRIES[country];
       const time = times[country];
-      
+
       return `
         <div class="time-zone" data-country="${country}">
           <span class="flag" aria-label="Bandera de ${countryData.name}">
@@ -525,7 +550,7 @@ class TwitchCalendar {
         </div>
       `;
     }).join('');
-    
+
     return `
       <div class="time-zone spain" data-country="spain">
         <span class="flag" aria-label="Bandera de ${spainData.name}">
@@ -545,7 +570,7 @@ class TwitchCalendar {
    */
   addEventListeners() {
     const cards = this.container.querySelectorAll('.card');
-    
+
     cards.forEach(card => {
       card.addEventListener('click', () => this.handleCardClick(card));
       card.addEventListener('mouseenter', () => this.handleCardHover(card, true));
@@ -554,7 +579,7 @@ class TwitchCalendar {
 
     // Añadir controles de teclado para la animación
     this.addKeyboardControls();
-    
+
     // Añadir event listener para el botón de animación
     this.addAnimationButtonListener();
   }
@@ -569,7 +594,7 @@ class TwitchCalendar {
         this.startManualAnimation();
       });
     }
-    
+
     // Añadir event listener para el botón toggle
     const toggleBtn = document.getElementById('toggle-animation-btn');
     if (toggleBtn) {
@@ -596,7 +621,7 @@ class TwitchCalendar {
   toggleAnimationMode() {
     const toggleBtn = document.getElementById('toggle-animation-btn');
     if (!toggleBtn) return;
-    
+
     if (toggleBtn.classList.contains('active')) {
       // Desactivar modo sin animación
       this.enableAnimationMode();
@@ -620,7 +645,7 @@ class TwitchCalendar {
     if (this.animationManager.isAnimating) {
       this.stopAnimation();
     }
-    
+
     // Mostrar todas las cards inmediatamente
     const cards = this.container.querySelectorAll('.card');
     cards.forEach(card => {
@@ -628,10 +653,10 @@ class TwitchCalendar {
       card.style.opacity = '1';
       card.classList.remove('animating-in', 'animating-out');
     });
-    
+
     // Marcar como completado para evitar auto-inicio
     this.animationManager.hasCompletedOnce = true;
-    
+
     console.log('Modo sin animación activado');
   }
 
@@ -641,7 +666,7 @@ class TwitchCalendar {
   enableAnimationMode() {
     // Resetear el estado de completado para permitir animaciones
     this.animationManager.resetCompleted();
-    
+
     console.log('Modo con animación activado');
   }
 
@@ -651,7 +676,7 @@ class TwitchCalendar {
   updateAnimationButtonState() {
     const animationBtn = document.getElementById('start-animation-btn');
     const toggleBtn = document.getElementById('toggle-animation-btn');
-    
+
     if (animationBtn) {
       if (this.animationManager.isAnimating) {
         animationBtn.disabled = true;
@@ -664,7 +689,7 @@ class TwitchCalendar {
         animationBtn.textContent = '🎬 Iniciar Animación';
       }
     }
-    
+
     if (toggleBtn) {
       // El botón toggle siempre está habilitado
       toggleBtn.disabled = false;
@@ -676,7 +701,7 @@ class TwitchCalendar {
    */
   addKeyboardControls() {
     document.addEventListener('keydown', (event) => {
-      switch(event.key.toLowerCase()) {
+      switch (event.key.toLowerCase()) {
         case ' ': // Espacio - Pausar/Reanudar
           event.preventDefault();
           if (this.animationManager.isAnimating) {
@@ -704,7 +729,7 @@ class TwitchCalendar {
   handleCardClick(card) {
     const day = card.dataset.day;
     console.log(`Día seleccionado: ${day}`);
-    
+
     // Aquí puedes añadir funcionalidad adicional
     // como mostrar detalles, abrir modal, etc.
   }
@@ -735,15 +760,15 @@ class TwitchCalendar {
           delete card.dataset.blinkInterval;
         }
       });
-      
+
       // Añadir la clase al día actual
       currentCard.classList.add('current-day-highlight');
-      
+
       // Verificar que la clase se aplicó correctamente
       console.log(`Día actual resaltado: ${this.currentDay}`);
       console.log('Clases de la tarjeta:', currentCard.className);
       console.log('¿Tiene la clase current-day-highlight?', currentCard.classList.contains('current-day-highlight'));
-      
+
       // Iniciar la animación de parpadeo inmediatamente
       this.startBlinkingAnimation();
     } else {
@@ -788,12 +813,12 @@ class TimeZoneManager {
   convertTime(baseTime, baseTimeZone, targetTimeZones) {
     // Implementación básica - en producción usar librería como moment-timezone
     const conversions = {};
-    
+
     targetTimeZones.forEach(zone => {
       // Aquí iría la lógica real de conversión de zonas horarias
       conversions[zone] = this.calculateTimeDifference(baseTime, zone);
     });
-    
+
     return conversions;
   }
 
@@ -809,13 +834,13 @@ class TimeZoneManager {
       colombia: -6,
       chile: -5
     };
-    
+
     const [hours, minutes] = baseTime.split(':').map(Number);
     let newHours = hours + timeDiffs[targetZone];
-    
+
     if (newHours < 0) newHours += 24;
     if (newHours >= 24) newHours -= 24;
-    
+
     return `${newHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   }
 }
@@ -871,19 +896,19 @@ class CalendarStateManager {
 document.addEventListener('DOMContentLoaded', () => {
   // Inicializar el calendario
   const calendar = new TwitchCalendar('.container');
-  
+
   // Inicializar el manejador de zonas horarias
   const timeZoneManager = new TimeZoneManager();
-  
+
   // Inicializar el manejador de estado
   const stateManager = new CalendarStateManager();
   stateManager.loadState();
-  
+
   // Exponer instancias globalmente para debugging
   window.twitchCalendar = calendar;
   window.timeZoneManager = timeZoneManager;
   window.stateManager = stateManager;
-  
+
   console.log('Calendario Twitch inicializado correctamente');
   console.log('=== CONTROLES DE ANIMACIÓN ===');
   console.log('Espacio: Pausar/Reanudar animación');
@@ -891,7 +916,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('R: Reiniciar animación');
   console.log('Escape: Detener animación');
   console.log('==============================');
-  
+
   // Exponer métodos de control globalmente para debugging
   window.pauseAnimation = () => calendar.pauseAnimation();
   window.resumeAnimation = () => calendar.resumeAnimation();
