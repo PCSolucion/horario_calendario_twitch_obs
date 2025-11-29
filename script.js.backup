@@ -1,0 +1,933 @@
+/**
+ * Calendario Horario Twitch - Script Principal
+ * Aplicando principios SOLID y DRY para mejor mantenibilidad
+ */
+
+// ===== CONFIGURACIÓN DE DATOS =====
+const SCHEDULE_DATA = {
+  lunes: {
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
+    times: {
+      spain: "18:00", /* Referencia principal */
+      mexico: "11:00", /* 7 horas menos que España (18:00 - 7 = 11:00) */
+      argentina: "14:00", /* 4 horas menos que España (18:00 - 4 = 14:00) */
+      colombia: "12:00", /* 6 horas menos que España (18:00 - 6 = 12:00) */
+      chile: "13:00" /* 5 horas menos que España (18:00 - 5 = 13:00) */
+    }
+  },
+  martes: {
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
+    times: {
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
+    }
+  },
+  miercoles: {
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
+    times: {
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
+    }
+  },
+  jueves: {
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
+    times: {
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
+    }
+  },
+  viernes: {
+    image: [
+      "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+      "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+    ],
+    game: "NW y KINGDOM COME DELIVERANCE 2",
+    times: {
+      spain: "18:00",
+      mexico: "11:00",
+      argentina: "14:00",
+      colombia: "12:00",
+      chile: "13:00"
+    }
+  },
+  sabado: {
+    image: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
+    game: "NEW WORLD AETERNUM",
+    times: {
+      spain: "11:00", /* Cambiado de 16:00 a 11:00 (mañana) */
+      mexico: "04:00", /* 7 horas menos que España (11:00 - 7 = 04:00) */
+      argentina: "07:00", /* 4 horas menos que España (11:00 - 4 = 07:00) */
+      colombia: "05:00", /* 6 horas menos que España (11:00 - 6 = 05:00) */
+      chile: "06:00" /* 5 horas menos que España (11:00 - 5 = 06:00) */
+    }
+  }
+};
+
+const COUNTRIES = {
+  spain: { name: "España", flag: "", isSpecial: true },
+  mexico: { name: "", flag: "MX", isSpecial: false },
+  argentina: { name: "", flag: "AR", isSpecial: false },
+  colombia: { name: "", flag: "CO", isSpecial: false },
+  chile: { name: "", flag: "CL", isSpecial: false }
+};
+
+// ===== CLASE PARA MANEJO DE ANIMACIONES =====
+class AnimationManager {
+  constructor() {
+    this.isAnimating = false;
+    this.animationDelay = 900; // Delay entre cada card (aumentado de 600ms a 900ms)
+    this.animationDuration = 2000; // Duración de la animación (ajustado para salida muy pausada como baraja)
+    this.hasCompletedOnce = false; // Control para ejecutar solo una vez
+  }
+
+  /**
+   * Anima la entrada de las cards con un fade-in simple
+   */
+  async animateCardsIn(cards) {
+    if (this.isAnimating) return;
+
+    this.isAnimating = true;
+
+    // Ocultar todas las cards inicialmente
+    cards.forEach(card => {
+      card.classList.add('animating-in');
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.95)';
+    });
+
+    // Pequeño delay para asegurar que las cards estén ocultas
+    await this.delay(100);
+
+    // Animar entrada de cada card con fade-in simple
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+
+      // Fade-in simple
+      card.style.opacity = '1';
+      card.style.transform = 'scale(1)';
+
+      // Esperar antes de la siguiente card (delay más corto)
+      if (i < cards.length - 1) {
+        await this.delay(200); // Delay reducido a 200ms
+      }
+    }
+
+    // Esperar a que termine la última animación
+    await this.delay(800);
+
+    // Limpiar clases de animación
+    cards.forEach(card => {
+      card.classList.remove('animating-in');
+    });
+
+    this.isAnimating = false;
+  }
+
+  /**
+   * Anima la salida de las cards como una baraja que se juntan rápidamente hacia la izquierda
+   */
+  async animateCardsOut(cards) {
+    if (this.isAnimating) return;
+
+    this.isAnimating = true;
+
+    // Añadir clase de animación de salida a todas las cards simultáneamente
+    cards.forEach(card => {
+      card.classList.add('animating-out');
+    });
+
+    // Animar salida de todas las cards al mismo tiempo (como una baraja)
+    cards.forEach((card, index) => {
+      // Sin rotación, solo movimiento horizontal recto
+      card.style.transform = 'translateX(-100vw)';
+      card.style.opacity = '0';
+    });
+
+    // Esperar a que termine la animación (mucho más lento)
+    await this.delay(2000); // Ajustado para salida muy pausada como baraja
+
+    // Limpiar clases de animación
+    cards.forEach(card => {
+      card.classList.remove('animating-out');
+    });
+
+    this.isAnimating = false;
+    this.hasCompletedOnce = true; // Marcar como completada
+  }
+
+  /**
+   * Función de utilidad para delays
+   */
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Reinicia las cards a su estado normal
+   */
+  resetCards(cards) {
+    cards.forEach(card => {
+      card.classList.remove('animating-in', 'animating-out');
+      card.style.transform = '';
+      card.style.opacity = '';
+
+      // NO tocar los estilos de borde y sombra si es la tarjeta del día actual
+      // La animación de parpadeo se maneja por separado
+    });
+  }
+
+  /**
+   * Pausa la animación
+   */
+  pause() {
+    this.isAnimating = true;
+  }
+
+  /**
+   * Reanuda la animación
+   */
+  resume() {
+    this.isAnimating = false;
+  }
+
+  /**
+   * Verifica si la animación ya se completó una vez
+   */
+  hasCompleted() {
+    return this.hasCompletedOnce;
+  }
+
+  /**
+   * Resetea el estado de completado
+   */
+  resetCompleted() {
+    this.hasCompletedOnce = false;
+  }
+}
+
+// ===== CLASE PRINCIPAL DEL CALENDARIO =====
+class TwitchCalendar {
+  constructor(containerSelector) {
+    this.container = document.querySelector(containerSelector);
+    this.currentDay = this.getCurrentDay();
+    this.animationManager = new AnimationManager();
+    this.init();
+  }
+
+  /**
+   * Inicializa el calendario
+   */
+  init() {
+    this.renderCalendar();
+    this.addEventListeners();
+    this.highlightCurrentDay();
+
+    // Configurar estado inicial del botón
+    this.updateAnimationButtonState();
+
+    // Iniciar animación de entrada automáticamente al cargar
+    this.startEntryAnimation();
+  }
+
+  /**
+   * Inicia la animación de entrada de las cards
+   */
+  async startEntryAnimation() {
+    const cards = this.container.querySelectorAll('.card');
+    this.updateAnimationStatus('Entrando cards...', 'entering');
+    this.updateAnimationButtonState();
+    await this.animationManager.animateCardsIn(Array.from(cards));
+
+    // Asegurar que el resaltado del día actual persista después de la animación
+    this.ensureCurrentDayHighlight();
+
+    // Animación completada, las cards permanecen visibles
+    this.updateAnimationStatus('Animación completada', 'completed');
+    this.updateAnimationButtonState();
+  }
+
+  /**
+   * Inicia la animación de salida de las cards
+   */
+  async startExitAnimation() {
+    const cards = this.container.querySelectorAll('.card');
+    this.updateAnimationStatus('Saliendo cards...', 'exiting');
+    this.updateAnimationButtonState();
+    await this.animationManager.animateCardsOut(Array.from(cards));
+
+    // Después de que todas las cards hayan salido, mostrar mensaje de completado
+    this.updateAnimationStatus('Animación completada - Usa el botón para repetir', 'completed');
+    this.updateAnimationButtonState();
+  }
+
+  /**
+   * Reinicia el ciclo de animación
+   */
+  async restartAnimationCycle() {
+    const cards = this.container.querySelectorAll('.card');
+
+    // Detener todas las animaciones de parpadeo
+    this.stopAllBlinkingAnimations();
+
+    // Reiniciar estado de las cards
+    this.animationManager.resetCards(Array.from(cards));
+
+    // Resetear el estado de completado
+    this.animationManager.resetCompleted();
+
+    // Pequeño delay y reiniciar
+    await this.animationManager.delay(500);
+    this.startEntryAnimation();
+  }
+
+  /**
+   * Detiene todas las animaciones de parpadeo
+   */
+  stopAllBlinkingAnimations() {
+    const cards = this.container.querySelectorAll('.card');
+    cards.forEach(card => {
+      if (card.dataset.blinkInterval) {
+        clearInterval(parseInt(card.dataset.blinkInterval));
+        delete card.dataset.blinkInterval;
+      }
+    });
+  }
+
+  /**
+   * Asegura que el resaltado del día actual persista después de las animaciones
+   */
+  ensureCurrentDayHighlight() {
+    // Pequeño delay para asegurar que las animaciones hayan terminado
+    setTimeout(() => {
+      this.highlightCurrentDay();
+      // Forzar la animación de parpadeo con JavaScript
+      this.startBlinkingAnimation();
+    }, 100);
+  }
+
+  /**
+   * Inicia la animación de parpadeo usando JavaScript para mayor control
+   */
+  /**
+   * Inicia la animación de parpadeo usando JavaScript para mayor control
+   */
+  startBlinkingAnimation() {
+    // Animación desactivada por solicitud del usuario
+    /*
+    const currentCard = this.container.querySelector(`[data-day="${this.currentDay}"]`);
+    if (!currentCard) return;
+
+    // Remover cualquier animación CSS previa
+    currentCard.style.animation = '';
+
+    // Aplicar estilos iniciales
+    currentCard.style.border = '3px solid var(--color-primary)';
+    currentCard.style.boxShadow = '0 0 25px var(--color-primary)';
+
+    let isVisible = true;
+    const blinkInterval = setInterval(() => {
+      if (isVisible) {
+        // Estado "apagado"
+        currentCard.style.border = '3px solid rgba(145, 71, 255, 0.3)';
+        currentCard.style.boxShadow = '0 0 10px rgba(145, 71, 255, 0.3)';
+        isVisible = false;
+      } else {
+        // Estado "encendido"
+        currentCard.style.border = '3px solid var(--color-primary)';
+        currentCard.style.boxShadow = '0 0 25px var(--color-primary)';
+        isVisible = true;
+      }
+    }, 1500); // Cambio cada 1.5 segundos (3 segundos total por ciclo)
+
+    // Guardar el intervalo para poder detenerlo si es necesario
+    currentCard.dataset.blinkInterval = blinkInterval;
+
+    console.log('Animación de parpadeo iniciada con JavaScript');
+    */
+  }
+
+  /**
+   * Actualiza el indicador de estado de la animación
+   */
+  updateAnimationStatus(message, state = 'default') {
+    const statusElement = document.getElementById('animation-status');
+    if (statusElement) {
+      const statusText = statusElement.querySelector('.status-text');
+      if (statusText) {
+        statusText.textContent = message;
+      }
+
+      // Actualizar clases CSS según el estado
+      statusElement.className = `animation-status status-${state}`;
+    }
+  }
+
+  /**
+   * Pausa la animación
+   */
+  pauseAnimation() {
+    this.animationManager.pause();
+    this.updateAnimationStatus('Animación pausada', 'paused');
+    this.updateAnimationButtonState();
+    console.log('Animación pausada');
+  }
+
+  /**
+   * Reanuda la animación
+   */
+  resumeAnimation() {
+    this.animationManager.resume();
+    this.updateAnimationStatus('Animación reanudada', 'resumed');
+    this.updateAnimationButtonState();
+    console.log('Animación reanudada');
+  }
+
+  /**
+   * Detiene completamente la animación
+   */
+  stopAnimation() {
+    this.animationManager.pause();
+    const cards = this.container.querySelectorAll('.card');
+    this.animationManager.resetCards(Array.from(cards));
+    this.updateAnimationStatus('Animación detenida', 'stopped');
+    this.updateAnimationButtonState();
+    console.log('Animación detenida');
+  }
+
+  /**
+   * Reinicia la animación desde el principio
+   */
+  restartAnimation() {
+    this.stopAnimation();
+    this.updateAnimationStatus('Reiniciando animación...', 'restarting');
+    this.updateAnimationButtonState();
+    setTimeout(() => {
+      this.startEntryAnimation();
+    }, 1000);
+  }
+
+  /**
+   * Obtiene el día actual de la semana
+   */
+  getCurrentDay() {
+    const days = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+    return days[new Date().getDay()];
+  }
+
+  /**
+   * Renderiza el calendario completo
+   */
+  renderCalendar() {
+    if (!this.container) return;
+
+    this.container.innerHTML = '';
+
+    Object.entries(SCHEDULE_DATA).forEach(([day, data]) => {
+      const cardElement = this.createDayCard(day, data);
+      this.container.appendChild(cardElement);
+    });
+
+    // Re-aplicar el resaltado del día actual después del renderizado
+    this.highlightCurrentDay();
+  }
+
+  /**
+   * Crea una tarjeta de día individual
+   */
+  createDayCard(day, data) {
+    const article = document.createElement('article');
+    article.className = 'card';
+    article.dataset.day = day;
+
+    // Capitalizar primera letra del día
+    const dayName = day.toUpperCase(); // En la imagen está todo en mayúsculas
+
+    // Manejar imágenes múltiples o única
+    let imageHtml = '';
+    if (Array.isArray(data.image)) {
+      // Si hay múltiples imágenes, usamos la primera por defecto o creamos un collage si se requiere
+      // Para este diseño, parece mejor usar una imagen de fondo principal.
+      // Usaremos la primera imagen como fondo.
+      imageHtml = `<img src="${data.image[0]}" alt="Juego para ${dayName}" class="card__bg-image">`;
+    } else {
+      imageHtml = `<img src="${data.image}" alt="Imagen de portada para ${dayName}" class="card__bg-image">`;
+    }
+
+    article.innerHTML = `
+      <div class="card__inner">
+        ${imageHtml}
+        <div class="card__overlay"></div>
+        
+        <div class="card__sidebar">
+          <span class="day-name">${dayName}</span>
+        </div>
+
+        <div class="card__content">
+          <div class="card__header">
+            <h2 class="game-title">${data.game}</h2>
+          </div>
+          
+          <div class="card__footer">
+            ${this.createTimeZones(data.times)}
+          </div>
+        </div>
+      </div>
+    `;
+
+    return article;
+  }
+
+  /**
+   * Crea las zonas horarias para un día
+   */
+  createTimeZones(times) {
+    // España (Principal)
+    const spainTime = times.spain;
+
+    // Otros países
+    const otherCountries = [
+      { code: 'MX', flagCode: 'mx', time: times.mexico },
+      { code: 'AR', flagCode: 'ar', time: times.argentina },
+      { code: 'CO', flagCode: 'co', time: times.colombia },
+      { code: 'CL', flagCode: 'cl', time: times.chile }
+    ];
+
+    const otherTimesHtml = otherCountries.map(country => `
+      <div class="mini-time-box">
+        <div class="country-info">
+          <img src="https://flagcdn.com/24x18/${country.flagCode}.png" alt="${country.code}" class="flag-img">
+          <span class="country-code">[${country.code}]</span>
+        </div>
+        <div class="time-value">${country.time}</div>
+      </div>
+    `).join('');
+
+    return `
+      <div class="main-time-display">
+        <div class="time-box">
+          <span class="country-label">ESPAÑA</span>
+          <span class="time-value">${spainTime}</span>
+          <div class="signal-icon">
+            <div class="signal-bar bar-1"></div>
+            <div class="signal-bar bar-2"></div>
+            <div class="signal-bar bar-3"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="other-times-grid">
+        ${otherTimesHtml}
+      </div>
+    `;
+  }
+
+  /**
+   * Añade event listeners a las tarjetas
+   */
+  addEventListeners() {
+    const cards = this.container.querySelectorAll('.card');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => this.handleCardClick(card));
+      card.addEventListener('mouseenter', () => this.handleCardHover(card, true));
+      card.addEventListener('mouseleave', () => this.handleCardHover(card, false));
+    });
+
+    // Añadir controles de teclado para la animación
+    this.addKeyboardControls();
+
+    // Añadir event listener para el botón de animación
+    this.addAnimationButtonListener();
+  }
+
+  /**
+   * Añade event listener para el botón de animación
+   */
+  addAnimationButtonListener() {
+    const animationBtn = document.getElementById('start-animation-btn');
+    if (animationBtn) {
+      animationBtn.addEventListener('click', () => {
+        this.startManualAnimation();
+      });
+    }
+
+    // Añadir event listener para el botón toggle
+    const toggleBtn = document.getElementById('toggle-animation-btn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        this.toggleAnimationMode();
+      });
+    }
+  }
+
+  /**
+   * Inicia la animación manualmente desde el botón
+   */
+  startManualAnimation() {
+    // Solo permitir si no hay una animación en curso
+    if (!this.animationManager.isAnimating) {
+      this.restartAnimation();
+      this.updateAnimationStatus('Iniciando animación manual...', 'restarting');
+    }
+  }
+
+  /**
+   * Alterna entre modo con animación y sin animación
+   */
+  toggleAnimationMode() {
+    const toggleBtn = document.getElementById('toggle-animation-btn');
+    if (!toggleBtn) return;
+
+    if (toggleBtn.classList.contains('active')) {
+      // Desactivar modo sin animación
+      this.enableAnimationMode();
+      toggleBtn.classList.remove('active');
+      toggleBtn.textContent = '⏸️ Modo Sin Animación';
+      this.updateAnimationStatus('Modo con animación activado', 'resumed');
+    } else {
+      // Activar modo sin animación
+      this.disableAnimationMode();
+      toggleBtn.classList.add('active');
+      toggleBtn.textContent = '▶️ Modo Con Animación';
+      this.updateAnimationStatus('Modo sin animación activado', 'paused');
+    }
+  }
+
+  /**
+   * Desactiva el modo de animación
+   */
+  disableAnimationMode() {
+    // Detener cualquier animación en curso
+    if (this.animationManager.isAnimating) {
+      this.stopAnimation();
+    }
+
+    // Mostrar todas las cards inmediatamente
+    const cards = this.container.querySelectorAll('.card');
+    cards.forEach(card => {
+      card.style.transform = 'translateX(0)';
+      card.style.opacity = '1';
+      card.classList.remove('animating-in', 'animating-out');
+    });
+
+    // Marcar como completado para evitar auto-inicio
+    this.animationManager.hasCompletedOnce = true;
+
+    console.log('Modo sin animación activado');
+  }
+
+  /**
+   * Activa el modo de animación
+   */
+  enableAnimationMode() {
+    // Resetear el estado de completado para permitir animaciones
+    this.animationManager.resetCompleted();
+
+    console.log('Modo con animación activado');
+  }
+
+  /**
+   * Actualiza el estado del botón de animación
+   */
+  updateAnimationButtonState() {
+    const animationBtn = document.getElementById('start-animation-btn');
+    const toggleBtn = document.getElementById('toggle-animation-btn');
+
+    if (animationBtn) {
+      if (this.animationManager.isAnimating) {
+        animationBtn.disabled = true;
+        animationBtn.textContent = '⏳ Animando...';
+      } else if (this.animationManager.hasCompleted()) {
+        animationBtn.disabled = false;
+        animationBtn.textContent = '🎬 Repetir Animación';
+      } else {
+        animationBtn.disabled = false;
+        animationBtn.textContent = '🎬 Iniciar Animación';
+      }
+    }
+
+    if (toggleBtn) {
+      // El botón toggle siempre está habilitado
+      toggleBtn.disabled = false;
+    }
+  }
+
+  /**
+   * Añade controles de teclado para la animación
+   */
+  addKeyboardControls() {
+    document.addEventListener('keydown', (event) => {
+      switch (event.key.toLowerCase()) {
+        case ' ': // Espacio - Pausar/Reanudar
+          event.preventDefault();
+          if (this.animationManager.isAnimating) {
+            this.pauseAnimation();
+          } else {
+            this.resumeAnimation();
+          }
+          break;
+        case 's': // S - Detener
+          this.stopAnimation();
+          break;
+        case 'r': // R - Reiniciar
+          this.restartAnimation();
+          break;
+        case 'escape': // Escape - Detener
+          this.stopAnimation();
+          break;
+      }
+    });
+  }
+
+  /**
+   * Maneja el click en una tarjeta
+   */
+  handleCardClick(card) {
+    const day = card.dataset.day;
+    console.log(`Día seleccionado: ${day}`);
+
+    // Aquí puedes añadir funcionalidad adicional
+    // como mostrar detalles, abrir modal, etc.
+  }
+
+  /**
+   * Maneja el hover en una tarjeta
+   */
+  handleCardHover(card, isHovering) {
+    if (isHovering) {
+      card.style.transform = 'scale(1.02)';
+    } else {
+      card.style.transform = 'scale(1)';
+    }
+  }
+
+  /**
+   * Resalta el día actual
+   */
+  highlightCurrentDay() {
+    const currentCard = this.container.querySelector(`[data-day="${this.currentDay}"]`);
+    if (currentCard) {
+      // Remover la clase anterior si existe
+      this.container.querySelectorAll('.current-day-highlight').forEach(card => {
+        card.classList.remove('current-day-highlight');
+        // Detener cualquier animación de parpadeo previa
+        if (card.dataset.blinkInterval) {
+          clearInterval(parseInt(card.dataset.blinkInterval));
+          delete card.dataset.blinkInterval;
+        }
+      });
+
+      // Añadir la clase al día actual
+      currentCard.classList.add('current-day-highlight');
+
+      // Verificar que la clase se aplicó correctamente
+      console.log(`Día actual resaltado: ${this.currentDay}`);
+      console.log('Clases de la tarjeta:', currentCard.className);
+      console.log('¿Tiene la clase current-day-highlight?', currentCard.classList.contains('current-day-highlight'));
+
+      // Iniciar la animación de parpadeo inmediatamente
+      this.startBlinkingAnimation();
+    } else {
+      console.log(`No se encontró la tarjeta para el día: ${this.currentDay}`);
+    }
+  }
+
+  /**
+   * Actualiza los horarios para un día específico
+   */
+  updateDaySchedule(day, newTimes) {
+    if (SCHEDULE_DATA[day]) {
+      SCHEDULE_DATA[day].times = { ...SCHEDULE_DATA[day].times, ...newTimes };
+      this.renderCalendar();
+      this.addEventListeners();
+    }
+  }
+
+  /**
+   * Obtiene el horario actual de un día
+   */
+  getDaySchedule(day) {
+    return SCHEDULE_DATA[day] ? SCHEDULE_DATA[day].times : null;
+  }
+}
+
+// ===== CLASE PARA MANEJO DE ZONAS HORARIAS =====
+class TimeZoneManager {
+  constructor() {
+    this.timeZones = {
+      'Europe/Madrid': 'spain',
+      'America/Mexico_City': 'mexico',
+      'America/Argentina/Buenos_Aires': 'argentina',
+      'America/Bogota': 'colombia',
+      'America/Santiago': 'chile'
+    };
+  }
+
+  /**
+   * Convierte una hora a diferentes zonas horarias
+   */
+  convertTime(baseTime, baseTimeZone, targetTimeZones) {
+    // Implementación básica - en producción usar librería como moment-timezone
+    const conversions = {};
+
+    targetTimeZones.forEach(zone => {
+      // Aquí iría la lógica real de conversión de zonas horarias
+      conversions[zone] = this.calculateTimeDifference(baseTime, zone);
+    });
+
+    return conversions;
+  }
+
+  /**
+   * Calcula la diferencia horaria (simplificado)
+   */
+  calculateTimeDifference(baseTime, targetZone) {
+    // Implementación simplificada - en producción usar librería real
+    const timeDiffs = {
+      spain: 0,
+      mexico: -7,
+      argentina: -4,
+      colombia: -6,
+      chile: -5
+    };
+
+    const [hours, minutes] = baseTime.split(':').map(Number);
+    let newHours = hours + timeDiffs[targetZone];
+
+    if (newHours < 0) newHours += 24;
+    if (newHours >= 24) newHours -= 24;
+
+    return `${newHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  }
+}
+
+// ===== CLASE PARA MANEJO DE ESTADOS =====
+class CalendarStateManager {
+  constructor() {
+    this.state = {
+      currentTheme: 'default',
+      language: 'es',
+      show24Hour: true,
+      highlightCurrentDay: true
+    };
+  }
+
+  /**
+   * Cambia el tema del calendario
+   */
+  setTheme(theme) {
+    this.state.currentTheme = theme;
+    document.body.className = `theme-${theme}`;
+    this.saveState();
+  }
+
+  /**
+   * Cambia el idioma
+   */
+  setLanguage(lang) {
+    this.state.language = lang;
+    this.saveState();
+    // Aquí se implementaría la internacionalización
+  }
+
+  /**
+   * Guarda el estado en localStorage
+   */
+  saveState() {
+    localStorage.setItem('twitchCalendarState', JSON.stringify(this.state));
+  }
+
+  /**
+   * Carga el estado desde localStorage
+   */
+  loadState() {
+    const saved = localStorage.getItem('twitchCalendarState');
+    if (saved) {
+      this.state = { ...this.state, ...JSON.parse(saved) };
+    }
+  }
+}
+
+// ===== INICIALIZACIÓN CUANDO EL DOM ESTÉ LISTO =====
+document.addEventListener('DOMContentLoaded', () => {
+  // Inicializar el calendario
+  const calendar = new TwitchCalendar('.container');
+
+  // Inicializar el manejador de zonas horarias
+  const timeZoneManager = new TimeZoneManager();
+
+  // Inicializar el manejador de estado
+  const stateManager = new CalendarStateManager();
+  stateManager.loadState();
+
+  // Exponer instancias globalmente para debugging
+  window.twitchCalendar = calendar;
+  window.timeZoneManager = timeZoneManager;
+  window.stateManager = stateManager;
+
+  console.log('Calendario Twitch inicializado correctamente');
+  console.log('=== CONTROLES DE ANIMACIÓN ===');
+  console.log('Espacio: Pausar/Reanudar animación');
+  console.log('S: Detener animación');
+  console.log('R: Reiniciar animación');
+  console.log('Escape: Detener animación');
+  console.log('==============================');
+
+  // Exponer métodos de control globalmente para debugging
+  window.pauseAnimation = () => calendar.pauseAnimation();
+  window.resumeAnimation = () => calendar.resumeAnimation();
+  window.stopAnimation = () => calendar.stopAnimation();
+  window.restartAnimation = () => calendar.restartAnimation();
+});
+
+// ===== FUNCIONES UTILITARIAS =====
+const Utils = {
+  /**
+   * Formatea una hora en formato legible
+   */
+  formatTime: (time) => {
+    const [hours, minutes] = time.split(':');
+    return `${hours}:${minutes}`;
+  },
+
+  /**
+   * Valida si una hora es válida
+   */
+  isValidTime: (time) => {
+    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+    return timeRegex.test(time);
+  },
+
+  /**
+   * Obtiene el nombre del día en español
+   */
+  getDayName: (dayNumber) => {
+    const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    return days[dayNumber] || 'Desconocido';
+  }
+};
