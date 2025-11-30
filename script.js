@@ -7,10 +7,9 @@
 const SCHEDULE_DATA = {
     lunes: {
         image: [
-            "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
             "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
         ],
-        game: "NW y KINGDOM COME DELIVERANCE 2",
+        game: "KINGDOM COME DELIVERANCE 2",
         times: {
             spain: "20:00", /* Referencia principal */
             mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
@@ -21,10 +20,9 @@ const SCHEDULE_DATA = {
     },
     martes: {
         image: [
-            "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
-            "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+            "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg"
         ],
-        game: "NW y KINGDOM COME DELIVERANCE 2",
+        game: "NEW WORLD AETERNUM",
         times: {
             spain: "20:00",
             mexico: "13:00",
@@ -35,10 +33,9 @@ const SCHEDULE_DATA = {
     },
     miercoles: {
         image: [
-            "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
             "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
         ],
-        game: "NW y KINGDOM COME DELIVERANCE 2",
+        game: "KINGDOM COME DELIVERANCE 2",
         times: {
             spain: "20:00",
             mexico: "13:00",
@@ -49,10 +46,9 @@ const SCHEDULE_DATA = {
     },
     jueves: {
         image: [
-            "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
-            "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
+            "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg"
         ],
-        game: "NW y KINGDOM COME DELIVERANCE 2",
+        game: "NEW WORLD AETERNUM",
         times: {
             spain: "20:00",
             mexico: "13:00",
@@ -64,9 +60,8 @@ const SCHEDULE_DATA = {
     viernes: {
         image: [
             "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
-            "https://cdn1.epicgames.com/spt-assets/a7641d724f1242db95f8f72fc0fd8d81/kingdom-come-deliverance-2-87lch.jpg"
         ],
-        game: "NW y KINGDOM COME DELIVERANCE 2",
+        game: "NEW WORLD AETERNUM",
         times: {
             spain: "20:00",
             mexico: "13:00",
