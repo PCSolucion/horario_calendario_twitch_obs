@@ -12,11 +12,11 @@ const SCHEDULE_DATA = {
         ],
         game: "NW y KINGDOM COME DELIVERANCE 2",
         times: {
-            spain: "18:00", /* Referencia principal */
-            mexico: "11:00", /* 7 horas menos que España (18:00 - 7 = 11:00) */
-            argentina: "14:00", /* 4 horas menos que España (18:00 - 4 = 14:00) */
-            colombia: "12:00", /* 6 horas menos que España (18:00 - 6 = 12:00) */
-            chile: "13:00" /* 5 horas menos que España (18:00 - 5 = 13:00) */
+            spain: "20:00", /* Referencia principal */
+            mexico: "13:00", /* 7 horas menos que España (20:00 - 7 = 13:00) */
+            argentina: "16:00", /* 4 horas menos que España (20:00 - 4 = 16:00) */
+            colombia: "14:00", /* 6 horas menos que España (20:00 - 6 = 14:00) */
+            chile: "15:00" /* 5 horas menos que España (20:00 - 5 = 15:00) */
         }
     },
     martes: {
@@ -26,11 +26,11 @@ const SCHEDULE_DATA = {
         ],
         game: "NW y KINGDOM COME DELIVERANCE 2",
         times: {
-            spain: "18:00",
-            mexico: "11:00",
-            argentina: "14:00",
-            colombia: "12:00",
-            chile: "13:00"
+            spain: "20:00",
+            mexico: "13:00",
+            argentina: "16:00",
+            colombia: "14:00",
+            chile: "15:00"
         }
     },
     miercoles: {
@@ -40,11 +40,11 @@ const SCHEDULE_DATA = {
         ],
         game: "NW y KINGDOM COME DELIVERANCE 2",
         times: {
-            spain: "18:00",
-            mexico: "11:00",
-            argentina: "14:00",
-            colombia: "12:00",
-            chile: "13:00"
+            spain: "20:00",
+            mexico: "13:00",
+            argentina: "16:00",
+            colombia: "14:00",
+            chile: "15:00"
         }
     },
     jueves: {
@@ -54,11 +54,11 @@ const SCHEDULE_DATA = {
         ],
         game: "NW y KINGDOM COME DELIVERANCE 2",
         times: {
-            spain: "18:00",
-            mexico: "11:00",
-            argentina: "14:00",
-            colombia: "12:00",
-            chile: "13:00"
+            spain: "20:00",
+            mexico: "13:00",
+            argentina: "16:00",
+            colombia: "14:00",
+            chile: "15:00"
         }
     },
     viernes: {
@@ -68,24 +68,13 @@ const SCHEDULE_DATA = {
         ],
         game: "NW y KINGDOM COME DELIVERANCE 2",
         times: {
-            spain: "18:00",
-            mexico: "11:00",
-            argentina: "14:00",
-            colombia: "12:00",
-            chile: "13:00"
+            spain: "20:00",
+            mexico: "13:00",
+            argentina: "16:00",
+            colombia: "14:00",
+            chile: "15:00"
         }
     },
-    sabado: {
-        image: "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/08/nw_opengraph_1200x630-ezgif-com-webp-to-jpg-converter-1.jpg",
-        game: "NEW WORLD AETERNUM",
-        times: {
-            spain: "11:00", /* Cambiado de 16:00 a 11:00 (mañana) */
-            mexico: "04:00", /* 7 horas menos que España (11:00 - 7 = 04:00) */
-            argentina: "07:00", /* 4 horas menos que España (11:00 - 4 = 07:00) */
-            colombia: "05:00", /* 6 horas menos que España (11:00 - 6 = 05:00) */
-            chile: "06:00" /* 5 horas menos que España (11:00 - 5 = 06:00) */
-        }
-    }
 };
 
 const COUNTRIES = {

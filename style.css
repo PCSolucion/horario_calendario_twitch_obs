@@ -22,14 +22,15 @@
 }
 
 :root {
-  /* Colores Mercedes F1 (Petronas Cyan) */
-  --color-neon-cyan: #34C6BE;
-  /* Mercedes Petronas Cyan */
-  --color-neon-cyan-dim: #2a9e98;
-  --color-neon-cyan-bright: #d0f5f2;
+  /* Colores F1 Leaderboards (Morado) */
+  --color-neon-purple: #8714cb;
+  /* Morado brillante principal */
+  --color-neon-purple-dim: #9f7cc2;
+  /* Morado suave */
+  --color-neon-purple-bright: #d0b8f2;
 
   --color-text-white: #FFFFFF;
-  --color-text-gray: #b0b0b0;
+  --color-text-gray: #aaa;
 
   --bg-dark: transparent;
   /* Fondo transparente para OBS */
@@ -55,10 +56,10 @@
   --border-width: 3px;
 
   /* Glows Intensos Estilo LED */
-  --glow-cyan: 0 0 15px var(--color-neon-cyan), 0 0 30px var(--color-neon-cyan);
-  --glow-border: 0 0 10px var(--color-neon-cyan), inset 0 0 15px var(--color-neon-cyan);
-  --glow-text: 0 0 10px var(--color-neon-cyan);
-  --glow-box: 0 0 20px rgba(0, 210, 190, 0.4);
+  --glow-purple: 0 0 15px var(--color-neon-purple), 0 0 30px var(--color-neon-purple);
+  --glow-border: 0 0 10px var(--color-neon-purple), inset 0 0 15px var(--color-neon-purple);
+  --glow-text: 0 0 10px var(--color-neon-purple);
+  --glow-box: 0 0 20px rgba(135, 20, 203, 0.4);
 
   /* Fuentes */
   --font-main: 'Magistral', sans-serif;
@@ -84,28 +85,56 @@ body {
   padding: 30px;
 }
 
+/* ===== SCROLLBAR PERSONALIZADA ===== */
+.container::-webkit-scrollbar {
+  height: 12px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--color-neon-purple), var(--color-neon-purple-dim));
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(135, 20, 203, 0.5);
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-purple);
+  box-shadow: 0 0 15px rgba(135, 20, 203, 0.8);
+}
+
 /* ===== LAYOUT PRINCIPAL ===== */
 .container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  max-width: 1600px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  max-width: 1920px;
   width: 100%;
   margin: 0 auto;
   padding: 20px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  justify-content: center;
 }
 
 /* ===== CARD COMPONENT ===== */
-/* ===== CARD COMPONENT ===== */
 .card {
   position: relative;
-  height: 600px;
+  height: 950px;
+  /* Ajustado para 1080px de altura */
+  width: 336px;
+  /* Aumentado 20%: 280px × 1.20 = 336px */
+  flex-shrink: 0;
+  /* No permitir que se encoja */
   border-radius: var(--border-radius);
   overflow: visible;
   /* Cambiado a visible para que se vea el borde */
   /* Fondo gris para la parte principal del borde */
   background: #333333;
-  /* Padding asimétrico: 7px para el lado cyan (Arriba, Abajo, Izquierda), 3px para el lado gris (Derecha) */
+  /* Padding asimétrico: 7px para el lado morado (Arriba, Abajo, Izquierda), 3px para el lado gris (Derecha) */
   padding: 7px 3px 7px 7px;
 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -127,23 +156,23 @@ body {
   /* Asegurar que esté por encima del fondo */
 }
 
-/* Pseudo-elemento para el fondo CYAN del lado izquierdo (Borde del Sidebar) */
+/* Pseudo-elemento para el fondo MORADO del lado izquierdo (Borde del Sidebar) */
 .card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 87px;
-  /* Ancho del sidebar (80px) + padding izquierdo (7px) */
-  background: var(--color-neon-cyan);
+  width: 67px;
+  /* Ancho del sidebar (60px) + padding izquierdo (7px) */
+  background: var(--color-neon-purple);
   z-index: 0;
   /* Detrás del card__inner */
   /* Border-radius completo en las esquinas izquierdas */
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
   /* Añadimos un glow para que se vea mejor */
-  box-shadow: 0 0 20px rgba(0, 210, 190, 0.6);
+  box-shadow: 0 0 20px rgba(135, 20, 203, 0.6);
 }
 
 .card:hover {
@@ -181,18 +210,19 @@ body {
 .card__sidebar {
   position: relative;
   z-index: 2;
-  width: 80px;
+  width: 60px;
+  /* Reducido de 80px a 60px */
   /* Fondo con gradiente extendido más hacia la derecha para mayor glow */
-  background: linear-gradient(to right, rgba(0, 210, 190, 0.35) 0%, rgba(0, 210, 190, 0.15) 50%, rgba(5, 5, 10, 0.8) 100%);
+  background: linear-gradient(to right, rgba(135, 20, 203, 0.35) 0%, rgba(135, 20, 203, 0.15) 50%, rgba(5, 5, 10, 0.8) 100%);
   /* Borde derecho GRIS (parte interna) sin glow */
   border-right: 3px solid #333333;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Sombra con glow cyan que se extiende hacia la derecha */
+  /* Sombra con glow morado que se extiende hacia la derecha */
   box-shadow:
     5px 0 25px rgba(0, 0, 0, 0.9),
-    10px 0 40px rgba(0, 210, 190, 0.3);
+    10px 0 40px rgba(135, 20, 203, 0.3);
   backdrop-filter: blur(4px);
 }
 
@@ -203,13 +233,13 @@ body {
   text-orientation: mixed;
   transform: rotate(180deg);
   font-family: var(--font-main);
-  font-size: 2rem;
-  /* Reducido significativamente */
+  font-size: 1.5rem;
+  /* Reducido para cards más pequeñas */
   font-weight: 700;
   letter-spacing: 6px;
-  color: var(--color-neon-cyan);
-  /* Color Mercedes F1 */
-  text-shadow: 0 0 15px var(--color-neon-cyan);
+  color: var(--color-neon-purple);
+  /* Color F1 Leaderboards */
+  text-shadow: 0 0 15px var(--color-neon-purple);
   /* Glow del texto */
   white-space: nowrap;
   text-transform: uppercase;
@@ -237,7 +267,8 @@ body {
 
 .game-title {
   font-family: var(--font-main);
-  font-size: 1.6rem;
+  font-size: 1.2rem;
+  /* Reducido de 1.6rem */
   font-weight: 700;
   margin: 0;
   text-transform: uppercase;
@@ -262,26 +293,32 @@ body {
 }
 
 .time-box {
-  border: 4px solid var(--color-neon-cyan);
-  border-radius: 18px;
+  border: 3px solid var(--color-neon-purple);
+  /* Reducido de 4px */
+  border-radius: 12px;
+  /* Reducido de 18px */
   background: rgba(0, 0, 0, 0.9);
-  padding: 10px 30px;
+  padding: 8px 15px;
+  /* Reducido padding */
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+  /* Reducido de 15px */
   /* Glow LED intenso */
   box-shadow:
-    0 0 15px var(--color-neon-cyan),
-    inset 0 0 15px rgba(0, 210, 190, 0.3),
+    0 0 15px var(--color-neon-purple),
+    inset 0 0 15px rgba(135, 20, 203, 0.3),
     0 4px 10px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
-  min-width: 300px;
+  min-width: 200px;
+  /* Reducido de 300px */
   justify-content: center;
 }
 
 .country-label {
   font-family: var(--font-main);
-  font-size: 1.6rem;
+  font-size: 1.2rem;
+  /* Reducido de 1.6rem */
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--color-text-white);
@@ -290,7 +327,8 @@ body {
 .time-value {
   font-family: var(--font-tech);
   /* Fuente más técnica para números */
-  font-size: 1.8rem;
+  font-size: 1.4rem;
+  /* Reducido de 1.8rem */
   font-weight: 700;
   color: var(--color-text-white);
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -307,9 +345,9 @@ body {
 
 .signal-bar {
   width: 4px;
-  background-color: var(--color-neon-cyan);
+  background-color: var(--color-neon-purple);
   border-radius: 1px;
-  box-shadow: 0 0 8px var(--color-neon-cyan);
+  box-shadow: 0 0 8px var(--color-neon-purple);
   animation: signal-blink 1.5s infinite ease-in-out;
 }
 
@@ -333,7 +371,7 @@ body {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 8px var(--color-neon-cyan);
+    box-shadow: 0 0 8px var(--color-neon-purple);
   }
 
   50% {
@@ -345,8 +383,10 @@ body {
 /* Otros Tiempos Grid */
 .other-times-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  /* Cambiado de 4 a 2 columnas */
+  gap: 8px;
+  /* Reducido de 10px */
   /* Eliminado el fondo/borde contenedor general */
   background: transparent;
   border: none;
@@ -362,16 +402,18 @@ body {
   text-align: center;
   /* Estilo individual para cada caja */
   background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(0, 210, 190, 0.4);
-  border-radius: 10px;
-  padding: 8px;
-  box-shadow: 0 0 5px rgba(0, 210, 190, 0.2);
+  border: 1px solid rgba(135, 20, 203, 0.4);
+  border-radius: 8px;
+  /* Reducido de 10px */
+  padding: 6px;
+  /* Reducido de 8px */
+  box-shadow: 0 0 5px rgba(135, 20, 203, 0.2);
   transition: all 0.3s ease;
 }
 
 .mini-time-box:hover {
-  border-color: var(--color-neon-cyan);
-  box-shadow: 0 0 15px var(--color-neon-cyan);
+  border-color: var(--color-neon-purple);
+  box-shadow: 0 0 15px var(--color-neon-purple);
 }
 
 .country-info {
@@ -391,7 +433,8 @@ body {
 
 .country-code {
   font-family: var(--font-tech);
-  font-size: 0.9rem;
+  font-size: 0.75rem;
+  /* Reducido de 0.9rem */
   color: var(--color-text-gray);
   font-weight: 700;
   letter-spacing: 1px;
@@ -399,7 +442,8 @@ body {
 
 .mini-time-box .time-value {
   font-family: var(--font-tech);
-  font-size: 1.3rem;
+  font-size: 1.1rem;
+  /* Reducido de 1.3rem */
   color: var(--color-text-white);
   font-weight: 700;
 }
@@ -407,22 +451,25 @@ body {
 /* ===== RESPONSIVIDAD ===== */
 @media (max-width: 1200px) {
   .container {
-    grid-template-columns: repeat(2, 1fr);
+    /* Mantener fila horizontal en tablets */
+    flex-direction: row;
   }
 }
 
 @media (max-width: 768px) {
   .container {
-    grid-template-columns: 1fr;
+    /* Mantener fila horizontal en móviles */
+    flex-direction: row;
   }
 
   .card {
-    height: auto;
-    min-height: 400px;
+    height: 900px;
+    /* Reducir un poco en móviles */
+    min-width: 350px;
   }
 
   .day-name {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -450,19 +497,19 @@ body {
 
 /* Borde brillante para el día actual */
 .card.current-day-highlight {
-  background: var(--color-neon-cyan);
+  background: var(--color-neon-purple);
   box-shadow:
     0 4px 10px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(52, 198, 190, 0.6),
-    0 0 50px rgba(52, 198, 190, 0.4);
+    0 0 30px rgba(135, 20, 203, 0.6),
+    0 0 50px rgba(135, 20, 203, 0.4);
   animation: currentDayGlow 2s ease-in-out infinite;
 }
 
 /* Glow más intenso en el ::before del día actual */
 .card.current-day-highlight::before {
   box-shadow:
-    0 0 30px rgba(52, 198, 190, 0.8),
-    0 0 50px rgba(52, 198, 190, 0.6),
+    0 0 30px rgba(135, 20, 203, 0.8),
+    0 0 50px rgba(135, 20, 203, 0.6),
     inset 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
@@ -470,9 +517,9 @@ body {
 .card.current-day-highlight .day-name {
   animation: dayNamePulse 2s ease-in-out infinite;
   text-shadow:
-    0 0 15px var(--color-neon-cyan),
-    0 0 30px var(--color-neon-cyan),
-    0 0 45px rgba(52, 198, 190, 0.5);
+    0 0 15px var(--color-neon-purple),
+    0 0 30px var(--color-neon-purple),
+    0 0 45px rgba(135, 20, 203, 0.5);
 }
 
 /* Keyframe para el glow del día actual */
@@ -482,15 +529,15 @@ body {
   100% {
     box-shadow:
       0 4px 10px rgba(0, 0, 0, 0.5),
-      0 0 30px rgba(52, 198, 190, 0.6),
-      0 0 50px rgba(52, 198, 190, 0.4);
+      0 0 30px rgba(135, 20, 203, 0.6),
+      0 0 50px rgba(135, 20, 203, 0.4);
   }
 
   50% {
     box-shadow:
       0 4px 10px rgba(0, 0, 0, 0.5),
-      0 0 40px rgba(52, 198, 190, 0.8),
-      0 0 70px rgba(52, 198, 190, 0.6);
+      0 0 40px rgba(135, 20, 203, 0.8),
+      0 0 70px rgba(135, 20, 203, 0.6);
   }
 }
 
@@ -500,16 +547,16 @@ body {
   0%,
   100% {
     text-shadow:
-      0 0 15px var(--color-neon-cyan),
-      0 0 30px var(--color-neon-cyan),
-      0 0 45px rgba(52, 198, 190, 0.5);
+      0 0 15px var(--color-neon-purple),
+      0 0 30px var(--color-neon-purple),
+      0 0 45px rgba(135, 20, 203, 0.5);
   }
 
   50% {
     text-shadow:
-      0 0 20px var(--color-neon-cyan),
-      0 0 40px var(--color-neon-cyan),
-      0 0 60px rgba(52, 198, 190, 0.8);
+      0 0 20px var(--color-neon-purple),
+      0 0 40px var(--color-neon-purple),
+      0 0 60px rgba(135, 20, 203, 0.8);
   }
 }
 
